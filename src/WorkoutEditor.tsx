@@ -11,7 +11,13 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { FitnessDB, createSession, deleteSession, saveSession } from "./db";
+import {
+  FitnessDB,
+  createSession,
+  deleteSession,
+  saveSession,
+  hasWorkoutInput,
+} from "./db";
 import { download, makeBackup } from "./backup";
 import { formatSets, records, totals } from "./analytics";
 import {
@@ -106,6 +112,11 @@ export default function WorkoutEditor({
 }) {
   const [w, setW] = useState(initial);
   const latest = useRef(initial);
+  const explicitConfig = useRef(false);
+  const persisted = useRef(
+    data.workoutSessions.some((s) => s.id === initial.session.id),
+  );
+  const existedOnOpen = useRef(persisted.current);
   const queue = useRef(Promise.resolve());
   const failed = useRef(false);
   const finishLock = useRef(false);
@@ -158,6 +169,14 @@ export default function WorkoutEditor({
   function persist(next: Workout) {
     latest.current = next;
     setW(next);
+    if (
+      !persisted.current &&
+      !explicitConfig.current &&
+      next.session.status === "draft" &&
+      !hasWorkoutInput(next.session, next.sets)
+    )
+      return;
+    persisted.current = true;
     setPending((n) => n + 1);
     queue.current = queue.current
       .catch(() => {})
@@ -184,6 +203,7 @@ export default function WorkoutEditor({
     change({ ...latest.current, session: { ...latest.current.session, ...p } });
   }
   function itemPatch(id: string, p: Partial<SessionItem>) {
+    explicitConfig.current = true;
     sessionPatch({
       items: latest.current.session.items.map((i) =>
         i.id === id ? { ...i, ...p } : i,
@@ -350,7 +370,9 @@ export default function WorkoutEditor({
                 setFinishing(true);
                 await queue.current;
                 try {
-                  await saveSession(db, initial.session, initial.sets);
+                  if (existedOnOpen.current)
+                    await saveSession(db, initial.session, initial.sets);
+                  else await deleteSession(db, initial.session.id);
                   onClose();
                 } catch (e) {
                   setError(errorText(e));
@@ -401,7 +423,13 @@ export default function WorkoutEditor({
           ) : (
             <ShieldCheck size={16} />
           )}
-          {pending ? "正在保存到本地…" : error ? "输入需要检查" : "已保存"}
+          {pending
+            ? "正在保存到本地…"
+            : error
+              ? "输入需要检查"
+              : persisted.current
+                ? "已保存"
+                : "填写成绩后自动保存"}
         </div>
         {(error || numericError) && (
           <div className="editor-error" role="alert">

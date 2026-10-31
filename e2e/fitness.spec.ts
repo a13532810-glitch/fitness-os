@@ -83,6 +83,7 @@ test("逐组录入、增删组、草稿刷新、编辑与删除；目标确认�
   await page.getByLabel("腰围（cm）").fill("85");
   await page.getByRole("button", { name: "保存身体指标" }).click();
   await page.getByRole("button", { name: "制定下次目标" }).click();
+  await page.getByRole("dialog").getByText("高级选项", {exact:true}).click();
   await page
     .getByRole("dialog")
     .getByLabel("器械标识", { exact: true })

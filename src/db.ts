@@ -97,6 +97,55 @@ export function validateWorkout(session: Session, sets: WorkoutSet[]) {
       throw Error("请记录至少一组");
   }
 }
+/** Conservative: partial inputs and legacy annotations are valuable too. */
+export function hasWorkoutInput(session: Session, sets: WorkoutSet[]) {
+  return (
+    sets.some((s) => s.weight !== null || s.reps !== null) ||
+    session.duration !== null ||
+    !!session.notes.trim() ||
+    !!session.fatigue.trim() ||
+    session.items.some((i) => i.quality || i.reserve)
+  );
+}
+/** Unknown/custom equipment annotations are retained even without actual sets. */
+export function hasDraftContent(session: Session, sets: WorkoutSet[]) {
+  return (
+    hasWorkoutInput(session, sets) ||
+    session.items.some((i) => !!i.equipment.trim() || !!i.technique.trim())
+  );
+}
+export function emptyDrafts(data: Dataset) {
+  return data.workoutSessions.filter(
+    (s) =>
+      s.status === "draft" &&
+      !hasDraftContent(
+        s,
+        data.workoutSets.filter((x) => x.sessionId === s.id),
+      ),
+  );
+}
+/** Recheck inside the transaction: a preview cannot authorize deleting newly entered data. */
+export async function cleanEmptyDrafts(db: FitnessDB, ids: string[]) {
+  return db.transaction(
+    "rw",
+    [db.workoutSessions, db.workoutSets],
+    async () => {
+      let count = 0;
+      for (const id of ids) {
+        const s = await db.workoutSessions.get(id);
+        const sets = await db.workoutSets
+          .where("sessionId")
+          .equals(id)
+          .toArray();
+        if (s?.status !== "draft" || hasDraftContent(s, sets)) continue;
+        await db.workoutSets.where("sessionId").equals(id).delete();
+        await db.workoutSessions.delete(id);
+        count++;
+      }
+      return count;
+    },
+  );
+}
 export async function saveSession(
   db: FitnessDB,
   session: Session,

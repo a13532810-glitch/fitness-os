@@ -44,7 +44,9 @@ import {
   seed,
   snapshot,
   createSession,
-  saveSession,
+  emptyDrafts,
+  cleanEmptyDrafts,
+  hasDraftContent,
   deleteSession,
   rememberedExercise,
 } from "./db";
@@ -162,8 +164,17 @@ function Modal({
     ref.current?.showModal();
     const old = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const viewport = window.visualViewport;
+    const resize = () =>
+      ref.current?.style.setProperty(
+        "--modal-height",
+        `${Math.max(180, (viewport?.height ?? innerHeight) - 24)}px`,
+      );
+    resize();
+    viewport?.addEventListener("resize", resize);
     return () => {
       document.body.style.overflow = old;
+      viewport?.removeEventListener("resize", resize);
     };
   }, []);
   return (
@@ -286,7 +297,6 @@ function Workspace() {
     try {
       setSummary(null);
       const w = createSession(data, kind);
-      await saveSession(db, w.session, w.sets);
       setEditor(w);
     } catch (e) {
       setToast("无法创建草稿：" + errorText(e));
@@ -338,13 +348,7 @@ function Workspace() {
         <p>正在打开本地训练空间…</p>
       </main>
     );
-  const titles = {
-    home: "训练总览",
-    record: "训练记录",
-    trends: "进步趋势",
-    ai: "AI 周报",
-    data: "数据管理",
-  };
+
   return (
     <div className="app-shell">
       <aside className="sidebar">
@@ -386,9 +390,7 @@ function Workspace() {
       </aside>
       <div className="main-area">
         <header className="topbar">
-          <span className="breadcrumb">
-            Fitness OS <span>/</span> {titles[page]}
-          </span>
+          <span className="breadcrumb">Fitness OS</span>
           <div className="top-status">
             {!online ? (
               <>
@@ -499,6 +501,7 @@ function Workspace() {
           )}
           {page === "record" && (
             <RecordPage
+              db={db}
               data={data}
               start={start}
               open={open}
@@ -603,7 +606,14 @@ function Dashboard({
         b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt),
     )[0];
   const draft = data.workoutSessions
-    .filter((s) => s.status === "draft")
+    .filter(
+      (s) =>
+        s.status === "draft" &&
+        hasDraftContent(
+          s,
+          data.workoutSets.filter((x) => x.sessionId === s.id),
+        ),
+    )
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
   const prefs = data.settings[0];
   const day =
@@ -760,7 +770,7 @@ function Dashboard({
         }
       >
         <div className="exercise-grid">
-          {plan?.items.map((p, index) => {
+          {plan?.items.map((p) => {
             const original = data.exercises.find((e) => e.id === p.exerciseId);
             const e = original ? rememberedExercise(data, original) : undefined;
             if (!e) return null;
@@ -775,30 +785,29 @@ function Dashboard({
               )
               .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
             return (
-              <article className="exercise-card" key={e.id}>
-                <div className="exercise-card-top">
-                  <span className="exercise-index">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <Badge>{e.muscle}</Badge>
-                </div>
-                <h3>{e.name}</h3>
-                {e.equipment && <p className="equipment">{e.equipment}</p>}
-                {r && (
-                  <div className="performance-row">
-                    <small>上次</small>
-                    <b>{formatSets(r.sets)}</b>
-                  </div>
-                )}
-                <div className="performance-row target">
-                  <small>{g ? "目标" : "计划"}</small>
-                  <b>
+              <details className="overview-exercise" key={e.id}>
+                <summary>
+                  <b>{e.name}</b>
+                  <span>
                     {g
-                      ? `${g.weight === null ? "重量待定" : g.weight + "kg"} · ${g.sets}组 × ${g.min}–${g.max}次`
-                      : `${p.sets}组 × ${p.min}–${p.max}次`}
-                  </b>
+                      ? `${g.sets} × ${g.min}–${g.max}`
+                      : `${p.sets} × ${p.min}–${p.max}`}
+                  </span>
+                </summary>
+                <div className="exercise-facts">
+                  <p>
+                    {e.muscle}
+                    {e.equipment ? ` · ${e.equipment}` : " · 器械待填写"}
+                  </p>
+                  {r && <p>上次 {formatSets(r.sets)}</p>}
+                  {g && (
+                    <p>
+                      已确认目标{" "}
+                      {g.weight === null ? "重量待定" : `${g.weight} kg`}
+                    </p>
+                  )}
                 </div>
-              </article>
+              </details>
             );
           })}
         </div>
@@ -817,12 +826,14 @@ function Dashboard({
   );
 }
 function RecordPage({
+  db,
   data,
   start,
   open,
   plans,
   busy,
 }: {
+  db: FitnessDB;
   data: Dataset;
   start: (k: Kind) => void;
   open: (s: Session) => void;
@@ -830,10 +841,26 @@ function RecordPage({
   busy: boolean;
 }) {
   const [visibleCount, setVisibleCount] = useState(30);
-  const sessions = [...data.workoutSessions].sort(
-    (a, b) =>
-      b.date.localeCompare(a.date) || b.updatedAt.localeCompare(a.updatedAt),
+  const [cleanup, setCleanup] = useState<Session[] | null>(null);
+  const [cleaning, setCleaning] = useState(false);
+  const [cleanupError, setCleanupError] = useState("");
+  const candidates = emptyDrafts(data);
+  const drafts = data.workoutSessions.filter(
+    (s) =>
+      s.status === "draft" &&
+      hasDraftContent(
+        s,
+        data.workoutSets.filter((x) => x.sessionId === s.id),
+      ),
   );
+  const sessions = data.workoutSessions
+    .filter((s) => s.status !== "draft")
+    .sort(
+      (a, b) =>
+        Number(b.status === "completed") - Number(a.status === "completed") ||
+        b.date.localeCompare(a.date) ||
+        b.updatedAt.localeCompare(a.updatedAt),
+    );
   return (
     <>
       <div className="page-heading">
@@ -866,6 +893,78 @@ function RecordPage({
           </button>
         ))}
       </div>
+      {drafts.length > 0 && (
+        <Section title="继续训练">
+          <div className="session-list">
+            {drafts.map((s) => (
+              <button
+                className="session-row"
+                key={s.id}
+                onClick={() => open(s)}
+              >
+                <b>{names[s.kind]}</b>
+                <span>{fmt(s.date)} · 草稿</span>
+                <ChevronRight size={18} />
+              </button>
+            ))}
+          </div>
+        </Section>
+      )}
+      {candidates.length > 0 && (
+        <details className="panel">
+          <summary>检查 {candidates.length} 份空白草稿</summary>
+          <p className="muted">
+            仅列出没有实际重量、次数、时长、备注、器械设置或质量标记的草稿。清理前下载完整备份。
+          </p>
+          <button
+            className="text-button"
+            onClick={() => setCleanup(candidates)}
+          >
+            预览安全清理
+          </button>
+        </details>
+      )}
+      {cleanup && (
+        <Modal title="空白草稿清理预览" onClose={() => setCleanup(null)}>
+          <p>以下 {cleanup.length} 份草稿无有效训练输入；不会合并训练。</p>
+          {cleanupError && <p role="alert">{cleanupError}</p>}
+          {cleanup.map((s) => (
+            <div className="history-line" key={s.id}>
+              {fmt(s.date)} · {s.kind}
+              <small>
+                创建 {s.createdAt} · 更新 {s.updatedAt}
+              </small>
+            </div>
+          ))}
+          <button
+            className="secondary"
+            disabled={cleaning}
+            onClick={async () => {
+              setCleaning(true);
+              setCleanupError("");
+              try {
+                download(
+                  `Fitness-OS-清理前-${localDate()}.json`,
+                  JSON.stringify(await makeBackup(db), null, 2),
+                );
+                if (!confirm("请确认完整备份已下载。清理预览中的空白草稿？"))
+                  return;
+                await cleanEmptyDrafts(
+                  db,
+                  cleanup.map((s) => s.id),
+                );
+                setCleanup(null);
+              } catch (e) {
+                setCleanupError("清理未完成：" + errorText(e));
+              } finally {
+                setCleaning(false);
+              }
+            }}
+          >
+            备份并确认清理
+          </button>
+        </Modal>
+      )}
       <Section title="训练历史" eyebrow="YOUR TRAINING JOURNAL">
         <div className="session-list">
           {sessions.length ? (
@@ -888,7 +987,8 @@ function RecordPage({
                     </Badge>
                   </b>
                   <small>
-                    {fmt(s.date)} · {s.duration ?? "未填"} 分钟 ·{" "}
+                    {fmt(s.date)} ·{" "}
+                    {s.duration !== null ? `${s.duration} 分钟 · ` : ""}
                     {s.items.length} 个动作
                   </small>
                 </span>
@@ -1009,9 +1109,10 @@ function PlanEditor({
         if (!changed || confirm("放弃尚未保存的计划修改？")) close();
       }}
     >
-      <p className="muted">
-        计划和器械设置用于新训练。已有草稿及历史快照保持原样，修改后请在记录中确认实际器械。
-      </p>
+      <details className="help">
+        <summary>计划修改说明</summary>
+        <p>仅用于新训练，历史及已有草稿保持原样。</p>
+      </details>
       <div className="segmented">
         {(["A", "B", "C"] as const).map((k) => (
           <button
@@ -1023,15 +1124,18 @@ function PlanEditor({
           </button>
         ))}
       </div>
-      <div className="form-grid">
-        <label>
-          计划名称
-          <input
-            maxLength={160}
-            value={p.name}
-            onChange={(e) => patch({ name: e.target.value })}
-          />
-        </label>
+      <div className="form-grid plan-meta">
+        <details className="plan-name">
+          <summary>{p.name} · 编辑名称</summary>
+          <label>
+            计划名称
+            <input
+              maxLength={160}
+              value={p.name}
+              onChange={(e) => patch({ name: e.target.value })}
+            />
+          </label>
+        </details>
         <label className="check-label">
           <input
             type="checkbox"
@@ -1044,7 +1148,13 @@ function PlanEditor({
       {p.items.map((i) => {
         const e = exercises.find((e) => e.id === i.exerciseId)!;
         return (
-          <div className="plan-item" key={i.exerciseId}>
+          <details className="plan-item" key={i.exerciseId}>
+            <summary>
+              <b>{e.name}</b>
+              <span>
+                {i.sets} 组 × {i.min}–{i.max} 次
+              </span>
+            </summary>
             <div className="row-between">
               <h3>{e.name}</h3>
               <button
@@ -1101,7 +1211,7 @@ function PlanEditor({
                 />
               </label>
             </div>
-          </div>
+          </details>
         );
       })}
       <div className="add-exercise">
@@ -1229,7 +1339,13 @@ function Sparkline({
   if (points.length < 2)
     return (
       <div className="chart-empty">
-        暂无足够数据<small>至少记录两个可比数据点</small>
+        <b>{label}</b>
+        <span>
+          {[...points].sort((a, b) => a.date.localeCompare(b.date)).at(-1)
+            ?.value ?? "—"}{" "}
+          {unit}
+        </span>
+        <small>至少两个可比数据点显示趋势</small>
       </div>
     );
   const sorted = [...points].sort((a, b) => a.date.localeCompare(b.date));
@@ -1252,7 +1368,7 @@ function Sparkline({
         <b>
           {sorted
             .at(-1)!
-            .value.toLocaleString("zh-CN", { maximumFractionDigits: 1 })}{" "}
+            .value.toLocaleString("zh-CN", { maximumFractionDigits: 10 })}{" "}
           <small>{unit}</small>
         </b>
       </div>
@@ -1400,6 +1516,10 @@ function Trends({
           <p>训练量不等同于肌肉增长</p>
         </div>
       </div>
+      <details className="help">
+        <summary>指标口径</summary>
+        已结束训练包括完成和未完成的有效实际组，草稿排除。训练量不等同于肌肉增长。
+      </details>
       <div className="two-columns calendar-section">
         <section className="panel calendar">
           <div className="row-between">
@@ -1579,7 +1699,7 @@ function Trends({
         }
       >
         <div className="panel">
-          <div className="form-grid three">
+          <div className="form-grid three strength-filters">
             <label>
               器械动作
               <select
@@ -1629,9 +1749,10 @@ function Trends({
             <Badge green={p.delta !== null && p.delta > 0}>{p.label}</Badge>
             {p.warning && <p>{p.warning}</p>}
           </div>
-          <p className="muted">
-            图表仅显示同器械、同动作方式的每次最高实际组重量。重量变化不自动代表进步；请同时核对次数和组数。
-          </p>
+          <details className="help">
+            <summary>比较口径</summary>
+            仅比较同器械、同方式；图表显示最高实际组重量，重量变化不自动代表进步，需核对组数和次数。
+          </details>
           {currentEquipment && currentTechnique ? (
             <Sparkline
               label="每次最高实际组重量"
@@ -1648,14 +1769,16 @@ function Trends({
           ) : (
             <Empty title="暂无足够数据">请先填写器械标识和动作方式。</Empty>
           )}
-          <div className="reference">
-            <span>下次训练建议 · 待本人确认</span>
-            <b>
-              {latest
-                ? suggestion(data, latest.item)
-                : "先建立真实基线，不预设重量。"}
-            </b>
-          </div>
+          {latest && (
+            <div className="reference">
+              <span>下次训练建议 · 待本人确认</span>
+              <b>
+                {latest
+                  ? suggestion(data, latest.item)
+                  : "先建立真实基线，不预设重量。"}
+              </b>
+            </div>
+          )}
           <h3 className="subheading">历史实际成绩</h3>
           {comparableRecords.length ? (
             comparableRecords.slice(0, historyLimit).map((r) => (
@@ -1671,9 +1794,7 @@ function Trends({
               </div>
             ))
           ) : (
-            <p className="muted">
-              暂无足够数据。未填写条件的记录不用于力量比较。
-            </p>
+            <p className="muted">未填写条件的记录不用于力量比较。</p>
           )}
           {comparableRecords.length > historyLimit && (
             <button
@@ -1815,32 +1936,55 @@ function Trends({
         )}
       </Section>
       <Section title="身体变化" eyebrow="LOOK AT THE LONGER TERM">
-        <div className="two-columns">
-          <div className="panel">
-            <Sparkline
-              label="体重记录"
-              unit="kg"
-              points={trendData.bodyMetrics
-                .filter((b) => b.weight !== null)
-                .map((b) => ({ date: b.date, value: b.weight! }))}
-            />
-          </div>
-          <div className="panel">
-            <Sparkline
-              label="腰围记录"
-              unit="cm"
-              points={trendData.bodyMetrics
-                .filter((b) => b.waist !== null)
-                .map((b) => ({ date: b.date, value: b.waist! }))}
-            />
-          </div>
+        <div className="body-summary">
+          {(["weight", "waist"] as const).map((key) => {
+            const unit = key === "weight" ? "kg" : "cm";
+            const label = key === "weight" ? "体重记录" : "腰围记录";
+            const latestMetric = [...data.bodyMetrics]
+              .filter((b) => b[key] !== null)
+              .sort(
+                (a, b) =>
+                  b.date.localeCompare(a.date) ||
+                  b.updatedAt.localeCompare(a.updatedAt),
+              )[0];
+            return (
+              <div className="panel" key={key}>
+                <small>{label}</small>
+                <strong>
+                  {latestMetric?.[key] ?? "—"} <small>{unit}</small>
+                </strong>
+                <small>
+                  {latestMetric ? fmt(latestMetric.date) : "尚未记录"}
+                </small>
+              </div>
+            );
+          })}
         </div>
-        <p className="muted">
-          体重{trendData.bodyMetrics.filter((b) => b.weight !== null).length}
-          个记录点，腰围
-          {trendData.bodyMetrics.filter((b) => b.waist !== null).length}
-          个记录点。不强制每日录入；单日波动不等于脂肪增减。
-        </p>
+        <div className="body-trends">
+          {(["weight", "waist"] as const).map((key) => {
+            const points = trendData.bodyMetrics
+              .filter((b) => b[key] !== null)
+              .map((b) => ({ date: b.date, value: b[key]! }));
+            return points.length >= 2 ? (
+              <div className="panel" key={key}>
+                <Sparkline
+                  label={key === "weight" ? "体重记录" : "腰围记录"}
+                  unit={key === "weight" ? "kg" : "cm"}
+                  points={points}
+                />
+              </div>
+            ) : (
+              <p className="muted" key={key}>
+                {key === "weight" ? "体重" : "腰围"} · {points.length}{" "}
+                个记录点，至少两个点显示趋势
+              </p>
+            );
+          })}
+        </div>
+        <details className="help">
+          <summary>测量说明</summary>
+          体重与腰围分别比较；单日波动不等于脂肪增减。
+        </details>
         <details className="panel">
           <summary>查看身体指标明细</summary>
           {[...trendData.bodyMetrics]
@@ -2014,12 +2158,18 @@ function GoalForm({
   notify: (s: string) => void;
 }) {
   const [g, setG] = useState(goal);
+  const [advanced, setAdvanced] = useState(false);
   const patch = (p: Partial<Goal>) => setG({ ...g, ...p });
   return (
     <Modal title="制定待确认目标" onClose={close}>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
+          if (!g.equipment.trim() || !g.technique.trim() || !g.reason.trim()) {
+            setAdvanced(true);
+            notify("请在高级选项补充器械、动作方式和制定依据");
+            return;
+          }
           if (g.max < g.min) {
             notify("次数上限不能小于下限");
             return;
@@ -2037,7 +2187,7 @@ function GoalForm({
           }
         }}
       >
-        <div className="form-grid">
+        <div className="form-grid goal-fields">
           <label>
             动作
             <select
@@ -2050,36 +2200,6 @@ function GoalForm({
                 </option>
               ))}
             </select>
-          </label>
-          <label>
-            建议来源
-            <select
-              value={g.source}
-              onChange={(e) =>
-                patch({ source: e.target.value as Goal["source"] })
-              }
-            >
-              <option value="manual">本人制定</option>
-              <option value="ai">ChatGPT 建议（待核验）</option>
-            </select>
-          </label>
-          <label>
-            器械标识
-            <input
-              maxLength={160}
-              required
-              value={g.equipment}
-              onChange={(e) => patch({ equipment: e.target.value })}
-            />
-          </label>
-          <label>
-            动作方式
-            <input
-              maxLength={500}
-              required
-              value={g.technique}
-              onChange={(e) => patch({ technique: e.target.value })}
-            />
           </label>
           <label>
             目标重量 kg（可留空）
@@ -2130,16 +2250,55 @@ function GoalForm({
             />
           </label>
         </div>
-        <label>
-          制定依据
-          <textarea
-            required
-            maxLength={20000}
-            value={g.reason}
-            onChange={(e) => patch({ reason: e.target.value })}
-            placeholder="引用上次实际组，说明动作质量、余力及器械可用档位"
-          />
-        </label>
+        <details
+          className="advanced-options"
+          open={advanced}
+          onToggle={(e) => setAdvanced(e.currentTarget.open)}
+        >
+          <summary>高级选项</summary>
+          <div className="form-grid">
+            {" "}
+            <label>
+              建议来源
+              <select
+                value={g.source}
+                onChange={(e) =>
+                  patch({ source: e.target.value as Goal["source"] })
+                }
+              >
+                <option value="manual">本人制定</option>
+                <option value="ai">ChatGPT 建议（待核验）</option>
+              </select>
+            </label>
+            <label>
+              器械标识
+              <input
+                maxLength={160}
+
+                value={g.equipment}
+                onChange={(e) => patch({ equipment: e.target.value })}
+              />
+            </label>
+            <label>
+              动作方式
+              <input
+                maxLength={500}
+
+                value={g.technique}
+                onChange={(e) => patch({ technique: e.target.value })}
+              />
+            </label>
+          </div>{" "}
+          <label>
+            制定依据
+            <textarea
+              maxLength={20000}
+              value={g.reason}
+              onChange={(e) => patch({ reason: e.target.value })}
+              placeholder="引用上次实际组，说明动作质量、余力及器械可用档位"
+            />
+          </label>
+        </details>
         <p className="muted">
           保存后仍为待确认。不会改写实际成绩，不自动假定器械配重档位。
         </p>
@@ -2174,6 +2333,7 @@ function AIPage({
     .slice(0, 3);
   const issues = overview.map((x) => x.change.warning).filter(Boolean);
   const [text, setText] = useState("");
+  const [reportId, setReportId] = useState<string | null>(null);
   const [week, setWeek] = useState(weekStart(localDate()));
   const [copyFallback, setCopyFallback] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -2198,11 +2358,81 @@ function AIPage({
           <h1>AI 周报</h1>
         </div>
       </div>
+      <section className="weekly-overview panel">
+        <h2>本周训练概况</h2>
+        <p className="weekly-number">
+          {weekCompleted(data)}
+          <small>次已完成</small>
+        </p>
+        <p className="muted">
+          本周有效组数{" "}
+          {
+            totals(
+              data.workoutSets.filter((s) =>
+                data.workoutSessions.some(
+                  (w) =>
+                    w.id === s.sessionId &&
+                    w.status === "completed" &&
+                    w.date >= weekStart(localDate()) &&
+                    w.date <= localDate(),
+                ),
+              ),
+            ).sets
+          }{" "}
+          组
+        </p>
+        <details className="help">
+          <summary>统计说明</summary>
+          本地规则汇总；力量比较使用最近可比记录，不限定本周，并非 AI 结论。
+        </details>
+        <div
+          className={"weekly-groups " + (!overview.length ? "no-history" : "")}
+        >
+          <div>
+            <h3>力量变化</h3>
+            {overview.length ? (
+              overview.map((x) => (
+                <p key={x.name}>
+                  {x.name} · {x.change.label}
+                </p>
+              ))
+            ) : (
+              <p>暂无足够数据，先建立真实训练基线。</p>
+            )}
+          </div>
+          <div>
+            <h3>主要问题</h3>
+            <p>
+              {issues.length
+                ? issues.join(" ")
+                : "暂无足够依据判断停滞；请结合疲劳与恢复情况复盘。"}
+            </p>
+          </div>
+          <div>
+            <h3>下周建议</h3>
+            <p>
+              {overview[0]?.latest
+                ? suggestion(data, overview[0].latest.item)
+                : "先记录实际成绩，再形成有依据的建议。"}
+            </p>
+          </div>
+          <div>
+            <h3>下次目标</h3>
+            <p>
+              {
+                data.trainingGoals.filter((g) => g.status === "confirmed")
+                  .length
+              }{" "}
+              个已确认目标；新建议需在趋势页由你确认。
+            </p>
+          </div>
+        </div>
+      </section>
       <section className="panel ai-hero">
         <span className="brand-icon">
           <Sparkles />
         </span>
-        <h2>生成本周分析数据</h2>
+        <h2>导出给 ChatGPT</h2>
         <p>导出本地记录 → 交给 ChatGPT → 保存你认可的建议。</p>
         <div className="button-row">
           <button
@@ -2253,65 +2483,22 @@ function AIPage({
           </label>
         )}
       </section>
-      <section className="weekly-overview panel">
-        <h2>本周训练概况</h2>
-        <p className="weekly-number">
-          {weekCompleted(data)}
-          <small>次已完成</small>
-        </p>
-        <p className="muted">
-          本地规则汇总 · 不是 AI 结论。力量比较使用最近可比记录，不限定本周。
-        </p>
-        <div className="weekly-groups">
-          <div>
-            <h3>力量变化</h3>
-            {overview.length ? (
-              overview.map((x) => (
-                <p key={x.name}>
-                  {x.name} · {x.change.label}
-                </p>
-              ))
-            ) : (
-              <p>暂无足够数据，先建立真实训练基线。</p>
-            )}
-          </div>
-          <div>
-            <h3>主要问题</h3>
-            <p>
-              {issues.length
-                ? issues.join(" ")
-                : "暂无足够依据判断停滞；请结合疲劳与恢复情况复盘。"}
-            </p>
-          </div>
-          <div>
-            <h3>下周建议</h3>
-            <p>
-              {overview[0]?.latest
-                ? suggestion(data, overview[0].latest.item)
-                : "先记录实际成绩，再形成有依据的建议。"}
-            </p>
-          </div>
-          <div>
-            <h3>下次目标</h3>
-            <p>
-              {
-                data.trainingGoals.filter((g) => g.status === "confirmed")
-                  .length
-              }{" "}
-              个已确认目标；新建议需在趋势页由你确认。
-            </p>
-          </div>
-        </div>
-      </section>
-      <Section title="保存本周的思考" eyebrow="A NOTE TO YOUR FUTURE SELF">
+      <Section title="保存 AI 分析" eyebrow="A NOTE TO YOUR FUTURE SELF">
         <form
-          className="panel"
+          className="panel ai-page-form"
           onSubmit={async (e) => {
             e.preventDefault();
             if (!text.trim() || busy) return;
             setBusy(true);
             try {
-              await db.weeklyReports.add({ ...stamp(), week, text });
+              if (reportId)
+                await db.weeklyReports.update(reportId, {
+                  week,
+                  text,
+                  updatedAt: new Date().toISOString(),
+                });
+              else await db.weeklyReports.add({ ...stamp(), week, text });
+              setReportId(null);
               setText("");
               notify("周报已保存，训练目标仍需在趋势页单独确认");
             } catch (e) {
@@ -2335,9 +2522,13 @@ function AIPage({
             <textarea
               required
               maxLength={20000}
-              rows={9}
+              rows={3}
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => {
+                setText(e.target.value);
+                e.currentTarget.style.height = "auto";
+                e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
+              }}
               placeholder="粘贴 ChatGPT 分析，或写下本周训练、恢复与下周打算…"
             />
           </label>
@@ -2364,6 +2555,19 @@ function AIPage({
                   {fmt(r.week)} · 周报 <Badge>本人保存</Badge>
                 </summary>
                 <div className="report-text">{r.text}</div>
+                <button
+                  className="text-button"
+                  onClick={() => {
+                    setReportId(r.id);
+                    setWeek(r.week);
+                    setText(r.text);
+                    document
+                      .querySelector(".ai-page-form")
+                      ?.scrollIntoView({ block: "start" });
+                  }}
+                >
+                  编辑周报
+                </button>
                 <button
                   className="text-button danger"
                   onClick={async () => {
@@ -2824,7 +3028,7 @@ function SettingsPage({
           </section>
         </div>
       </Section>
-      <p className="version-info">Fitness OS · V1.2 · 数据版本 1</p>
+      <p className="version-info">Fitness OS · V1.2.1 · 数据版本 1</p>
     </>
   );
 }

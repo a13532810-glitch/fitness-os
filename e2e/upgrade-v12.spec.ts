@@ -132,7 +132,7 @@ test("真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史�
     await page.getByRole("button", { name: "更新应用", exact: true }).click();
     await expect(page.locator('meta[name="fitness-build"]')).toHaveAttribute(
       "content",
-      "1.2.0",
+      "1.2.1",
     );
     expect(await read()).toEqual(before);
     await page

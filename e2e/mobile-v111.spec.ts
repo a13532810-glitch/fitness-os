@@ -110,6 +110,11 @@ for (const width of [320, 375, 390, 430])
       }
       tx.objectStore("workoutSessions").put({
         id: "synthetic-draft",
+        duration: null,
+        fatigue: "",
+        notes: "",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         date: new Date().toISOString().slice(0, 10),
         status: "draft",
         kind: "A",
