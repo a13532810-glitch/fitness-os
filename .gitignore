@@ -20,3 +20,5 @@ artifacts/
 *.zip
 *备份*.json
 *backup*.json
+
+/node_modules

@@ -12,7 +12,7 @@ export default defineConfig({
       transformIndexHtml(html) {
         return html.replace(
           '</head>',
-          `<meta name="fitness-build" content="${process.env.FITNESS_BUILD_LABEL ?? '1.0.0'}" /></head>`,
+          `<meta name="fitness-build" content="${process.env.FITNESS_BUILD_LABEL ?? '1.1.0'}" /></head>`,
         );
       },
     },
@@ -30,8 +30,8 @@ export default defineConfig({
         start_url: base,
         scope: base,
         display: 'standalone',
-        background_color: '#f5f6f8',
-        theme_color: '#f5f6f8',
+        background_color: '#f4f6f3',
+        theme_color: '#f4f6f3',
         icons: [
           { src: base + 'icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: base + 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
