@@ -1,0 +1,713 @@
+{
+  "baseline": "d4c980d52b27eb4eb9c228afb9769ebba17af0bb",
+  "branch": "codex/fitness-os-v1.2.1-premium",
+  "build": "1.2.1",
+  "databaseSchema": 1,
+  "backupVersion": 1,
+  "unitTests": {
+    "files": 4,
+    "passed": 28,
+    "failed": 0
+  },
+  "browserStats": {
+    "startTime": "2026-10-31T10:15:07.092Z",
+    "duration": 235963.024,
+    "expected": 86,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browserTests": [
+    {
+      "title": "逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "移动布局与深色模式无横向溢出、数字键盘属性",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "生产PWA manifest、离线冷开、离线创建编辑、联网保留和更新检查",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "隔离合成记录的图表和桌面布局视觉检查",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "移动布局与深色模式无横向溢出、数字键盘属性",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "生产PWA manifest、离线冷开、离线创建编辑、联网保留和更新检查",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "隔离合成记录的图表和桌面布局视觉检查",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "身体指标独立判断零、一、两个点；删除必须确认",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "目标默认精简；高级依据必填且保存后仍待确认",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "周报编辑更新原记录，Markdown和复制提示词仍可用",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "身体指标独立判断零、一、两个点；删除必须确认",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "目标默认精简；高级依据必填且保存后仍待确认",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "周报编辑更新原记录，Markdown和复制提示词仍可用",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真正关闭浏览器进程后，持久配置中的训练草稿仍在",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "实际新版本Service Worker激活后 IndexedDB 草稿保持完整",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "4动作12组完整录入流程计时（自动操作，不代表真人速度）",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真正关闭浏览器进程后，持久配置中的训练草稿仍在",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "实际新版本Service Worker激活后 IndexedDB 草稿保持完整",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "4动作12组完整录入流程计时（自动操作，不代表真人速度）",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 320px 深浅色",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 375px 深浅色",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 390px 深浅色",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 430px 深浅色",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 已填写组取消删除、草稿放弃修改、整次删除前恢复备份",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 浏览器前后退与重新启动导航",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 320px 深浅色",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 375px 深浅色",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 390px 深浅色",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 四导航、输入乘号与动作库 430px 深浅色",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 已填写组取消删除、草稿放弃修改、整次删除前恢复备份",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "V1.2 浏览器前后退与重新启动导航",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 320px，深浅色、空态、大字号及长文本",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 375px，深浅色、空态、大字号及长文本",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 390px，深浅色、空态、大字号及长文本",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 430px，深浅色、空态、大字号及长文本",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 1440px，深浅色、空态、大字号及长文本",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "极简录入：小数、空值、主动复制、折叠、器械记忆、重复完成防护",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "1000次虚构历史的页面响应与历史分页",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 320px，深浅色、空态、大字号及长文本",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 375px，深浅色、空态、大字号及长文本",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 390px，深浅色、空态、大字号及长文本",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 430px，深浅色、空态、大字号及长文本",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "五页与记录视觉矩阵 1440px，深浅色、空态、大字号及长文本",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "极简录入：小数、空值、主动复制、折叠、器械记忆、重复完成防护",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "1000次虚构历史的页面响应与历史分页",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 320px",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 375px",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 390px",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 430px",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "旧演示偏好与独立演示库不影响个人训练库，未知来源记录原样保留",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 320px",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 375px",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 390px",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "单空间、每周图表与身体指标 430px",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "旧演示偏好与独立演示库不影响个人训练库，未知来源记录原样保留",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "浏览十次、类型切换、刷新与后台恢复不持久化空白训练",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "有效输入自动保存、刷新恢复原草稿与同日多次完成",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 320",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 390",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 430",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 1440",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "空白清理预览、取消确认、下载备份与有效草稿保护",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "新训练自动保存后放弃本次修改，不恢复出初始空白草稿",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "历史优先显示完成训练，并保留未完成训练",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "浏览十次、类型切换、刷新与后台恢复不持久化空白训练",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "有效输入自动保存、刷新恢复原草稿与同日多次完成",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 320",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 390",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 430",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "紧凑计划与全站无溢出 1440",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "空白清理预览、取消确认、下载备份与有效草稿保护",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "新训练自动保存后放弃本次修改，不恢复出初始空白草稿",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "历史优先显示完成训练，并保留未完成训练",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "隐藏的历史字段在重新编辑、导出和恢复后逐字段保留；完整性入口",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "隐藏的历史字段在重新编辑、导出和恢复后逐字段保留；完整性入口",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真实 V1.0 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真实 V1.0 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真实 V1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真实 V1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "已发布 V1.2 构建 → V1.2.1 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "chromium-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    },
+    {
+      "title": "已发布 V1.2 构建 → V1.2.1 SW更新 → 旧代码回滚：历史与草稿逐字段保持",
+      "project": "webkit-mobile",
+      "status": "expected",
+      "results": [
+        "passed"
+      ]
+    }
+  ],
+  "subpathEvidence": "pages-subpath-checks.json",
+  "physicalIPhone": "pending manual acceptance",
+  "indexHtmlSHA256": "1289546b933118e8e7ac7e52efcdf86a2abc35b2052ca3ba84ed4b8111235589"
+}

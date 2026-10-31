@@ -1,0 +1,89 @@
+{
+  "baseline": "d4c980d",
+  "isolatedSyntheticContext": true,
+  "opens": 10,
+  "sessionCount": 10,
+  "filledSets": 0,
+  "sessions": [
+    {
+      "id": "674b2e4e-6fee-41e1-94eb-e673e3d3e576",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:24.888Z",
+      "updatedAt": "2026-10-31T09:58:24.888Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "6fcc37b1-f943-4f45-a170-8379a5e0255a",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.071Z",
+      "updatedAt": "2026-10-31T09:58:25.071Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "83425c0b-7c56-4572-bdcc-32a4b4061498",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.487Z",
+      "updatedAt": "2026-10-31T09:58:25.487Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "9b6580db-9985-4f02-aef1-99821a13e50f",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.320Z",
+      "updatedAt": "2026-10-31T09:58:25.320Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "ab6ec37e-2750-4ccd-b1ce-9da19c50dd5c",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:24.987Z",
+      "updatedAt": "2026-10-31T09:58:24.987Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "c2762471-e949-4202-b165-646bbd2fe7a0",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.404Z",
+      "updatedAt": "2026-10-31T09:58:25.404Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "ce6925e7-eec5-4891-8630-cd6efdc8411f",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:24.007Z",
+      "updatedAt": "2026-10-31T09:58:24.007Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "cf67b247-18cd-4ce4-8fb9-463383ca845b",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.154Z",
+      "updatedAt": "2026-10-31T09:58:25.154Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "e07f8b0a-1873-450f-bc7e-318b0d8446f9",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.570Z",
+      "updatedAt": "2026-10-31T09:58:25.570Z",
+      "notes": "",
+      "duration": null
+    },
+    {
+      "id": "e0fc55e5-8138-48f1-8b30-2377f5fec27f",
+      "status": "draft",
+      "createdAt": "2026-10-31T09:58:25.237Z",
+      "updatedAt": "2026-10-31T09:58:25.237Z",
+      "notes": "",
+      "duration": null
+    }
+  ]
+}

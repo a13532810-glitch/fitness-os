@@ -243,7 +243,9 @@ test("1000次虚构历史的页面响应与历史分页", async ({ page }, info)
   await page.goto("/");
   await expect(page.locator(".page-heading")).toBeVisible();
   await page.getByRole("button", { name: "开始记录", exact: false }).click();
-  await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
+  await page.getByLabel("坐姿推胸 第1组重量").fill("20");
+  await page.getByLabel("坐姿推胸 第1组次数").fill("10");
+  await page.getByRole("button", { name: "完成训练", exact: true }).click();
   await page.evaluate(async () => {
     const db = await new Promise<IDBDatabase>((resolve, reject) => {
       const r = indexedDB.open("fitness-os-real");

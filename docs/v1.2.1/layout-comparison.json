@@ -1,0 +1,24 @@
+{
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "syntheticIsolatedContext": true,
+  "baseline": "d4c980d",
+  "before": {
+    "overviewHeight": 1766,
+    "planScrollHeight": 2967,
+    "planVisibleInputs": 14,
+    "editorHeight": 1171,
+    "visibleTextLength": 225
+  },
+  "after": {
+    "overviewHeight": 1398,
+    "planScrollHeight": 1675,
+    "planVisibleInputs": 1,
+    "editorHeight": 1164,
+    "visibleTextLength": 231
+  },
+  "overviewReductionPercent": 20.8,
+  "planScrollReductionPercent": 43.5
+}
