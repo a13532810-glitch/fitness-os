@@ -1,8 +1,9 @@
-# Fitness OS · V1.2 开发候选版
+# Fitness OS · V1.2
 
-简体中文、手机优先的个人健身记录 PWA。V1.2 精简训练录入与全站导航，**尚未合并或部署**。2026-10-31 已核实远端 main `4a10d42` 与线上构建标记 `1.1.1`，以此为基线保留全部 V1.1.1 修复。无需登录、后端或付费服务，训练数据只保存在本机 IndexedDB。
+简体中文、手机优先的个人健身记录 PWA。V1.2 精简训练录入与全站导航，以已发布的 V1.1.1（`4a10d42`）为基线，保留全部移动端修复。正式地址始终为 [GitHub Pages](https://a13532810-glitch.github.io/fitness-os/)。无需登录、后端或付费服务，训练数据只保存在本机 IndexedDB。
 
-- [V1.2 验收报告与截图](docs/V1.2_ACCEPTANCE.md)
+- [V1.2 发布与回滚说明](docs/V1.2_RELEASE.md)
+- [V1.2 开发验收报告与截图](docs/V1.2_ACCEPTANCE.md)
 - [V1.2 iPhone 真机检查表](docs/V1.2_IPHONE_CHECKLIST.md)
 
 ## 本地体验
@@ -45,7 +46,7 @@ pnpm test:e2e
 
 ## GitHub 分支与发布保护
 
-开发分支：`codex/fitness-os-v1.2-minimal`。仅推送开发分支，不合并 `main`，不创建 Release 或部署。开发检查工作流只运行单元测试与生产构建，不具备 Pages 写权限。Pages 工作流同时限制 main 触发和 main 执行；请勿手动部署开发分支。正式发布另行授权。底部四导航为总览、训练、趋势、AI 周报；数据管理位于总览右上角菜单，训练计划仍可从总览调整。
+开发分支：`codex/fitness-os-v1.2-minimal`。发布需用户明确授权、开发检查全部通过后再合并 `main`，通过现有 Pages Actions 部署。开发检查工作流只运行单元测试与生产构建，不具备 Pages 写权限。Pages 工作流同时限制 main 触发和 main 执行；请勿手动部署开发分支。2026-10-31 用户已授权本次 V1.2 安全合并、部署及验证后创建 `v1.2.0` 标签；真实 iPhone 验收仍待执行。底部四导航为总览、训练、趋势、AI 周报；数据管理位于总览右上角菜单，训练计划仍可从总览调整。
 
 GitHub Pages 构建使用：
 
