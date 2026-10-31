@@ -35,7 +35,7 @@ test("真正关闭浏览器进程后，持久配置中的训练草稿仍在", as
     await page.getByRole("button", { name: "开始记录", exact: false }).click();
     await page.getByLabel("坐姿推胸 第1组重量").fill("27.5");
     await page.getByLabel("坐姿推胸 第1组次数").fill("9");
-    await page.getByRole("button", { name: "保存并关闭" }).click();
+    await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
     await browser.close();
     browser = await engine.launchPersistentContext(directory, options);
     try {
@@ -69,7 +69,7 @@ test("实际新版本Service Worker激活后 IndexedDB 草稿保持完整", asyn
     await page.getByRole("button", { name: "开始记录", exact: false }).click();
     await page.getByLabel("坐姿推胸 第1组重量").fill("32.5");
     await page.getByLabel("坐姿推胸 第1组次数").fill("8");
-    await page.getByRole("button", { name: "保存并关闭" }).click();
+    await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
     execFileSync(
       process.execPath,
       [
@@ -125,9 +125,9 @@ test("4动作12组完整录入流程计时（自动操作，不代表真人速�
   await page.getByRole("button", { name: "保存计划与动作" }).click();
   const start = Date.now();
   await page.getByRole("button", { name: "开始记录", exact: false }).click();
-  await page.locator(".workout-more > summary").click();
-  await page.getByLabel("训练时长（分钟）").fill("45");
-  await page.getByLabel("主观疲劳").selectOption("适中");
+  await page.getByRole("button", { name: "训练更多操作" }).click();
+  await page.getByLabel("训练时长（分钟，可选）").fill("45");
+
   for (const name of ["坐姿推胸", "上斜推胸", "坐姿肩推", "侧平举机"]) {
     const toggle = page.locator(".exercise-toggle").filter({ hasText: name });
     if ((await toggle.getAttribute("aria-expanded")) !== "true")
@@ -137,7 +137,7 @@ test("4动作12组完整录入流程计时（自动操作，不代表真人速�
       await page.getByLabel(`${name} 第${group}组次数`).fill("10");
     }
   }
-  await page.getByLabel("训练感受").fill("本次动作稳定，保留余力");
+
   await page.getByRole("button", { name: "完成训练", exact: true }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   const seconds = (Date.now() - start) / 1000;

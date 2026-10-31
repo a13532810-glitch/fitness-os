@@ -4,11 +4,15 @@ import { readFile } from "node:fs/promises";
 async function begin(page: Page) {
   await page.goto("/");
   await expect(page.locator(".page-heading")).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "今天，也为自己进步一点。" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "训练总览" })).toBeVisible();
 }
 async function nav(page: Page, label: string) {
+  if (label === "数据管理") {
+    await nav(page, "总览");
+    await page.getByRole("button", { name: "总览更多操作" }).click();
+    await page.getByRole("button", { name: "数据管理", exact: true }).click();
+    return;
+  }
   await page
     .locator(".bottom-nav")
     .getByRole("button", { name: label, exact: true })
@@ -21,7 +25,7 @@ async function oneExercise(page: Page) {
     await dialog
       .getByRole("button", { name: "移除动作 " + name, exact: true })
       .click();
-  await dialog.locator(".equipment-settings > summary").click();
+  await dialog.getByRole("button", { name: "动作详情", exact: true }).click();
   await dialog.getByLabel("器械标识", { exact: true }).fill("胸推01");
   await dialog.getByLabel("动作方式 / 座椅设置").fill("座椅2标准幅度");
   return dialog;
@@ -56,7 +60,7 @@ test("逐组录入、增删组、草稿刷新、编辑与删除；目标确认�
   await d.getByRole("button", { name: "添加一组", exact: true }).click();
   await expect(d.getByLabel("坐姿推胸 第4组重量")).toBeVisible();
   await d.getByRole("button", { name: "移除坐姿推胸第4组" }).click();
-  await d.getByRole("button", { name: "保存并关闭" }).click();
+  await d.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
   await page.reload();
   await page
     .getByRole("button", { name: "还有一份训练草稿", exact: false })
@@ -64,10 +68,10 @@ test("逐组录入、增删组、草稿刷新、编辑与删除；目标确认�
   await expect(page.getByLabel("坐姿推胸 第2组重量")).toHaveValue("25");
   await page.getByRole("button", { name: "完成训练", exact: true }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
-  await nav(page, "记录");
+  await nav(page, "训练");
   await page.locator(".session-row").first().click();
   await page.getByLabel("坐姿推胸 第1组次数").fill("11");
-  await page.getByRole("button", { name: "保存并关闭" }).click();
+  await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
   await nav(page, "趋势");
   await expect(
     page.getByText("20kg × 11 / 25kg × 9 / 25kg × 8", { exact: false }).first(),
@@ -92,7 +96,7 @@ test("逐组录入、增删组、草稿刷新、编辑与删除；目标确认�
   page.once("dialog", (d) => d.accept());
   await page.getByRole("button", { name: "本人确认", exact: true }).click();
   await expect(page.getByText("已确认", { exact: true })).toBeVisible();
-  await nav(page, "AI");
+  await nav(page, "AI 周报");
   await page
     .getByLabel("分析结论或个人复盘")
     .fill("本周建立基线，下周保持同器械比较。");
@@ -103,10 +107,10 @@ test("逐组录入、增删组、草稿刷新、编辑与删除；目标确认�
   expect(pack.workoutSets).toHaveLength(3);
   expect(pack.bodyMetrics).toHaveLength(1);
   expect(pack.trainingGoals[0].status).toBe("confirmed");
-  await nav(page, "记录");
+  await nav(page, "训练");
   await page.locator(".session-row").first().click();
   page.once("dialog", (d) => d.accept());
-  await page.locator(".workout-more > summary").click();
+  await page.getByRole("button", { name: "训练更多操作" }).click();
   await page.getByRole("button", { name: "删除训练", exact: true }).click();
   await expect(page.getByText("还没有训练记录")).toBeVisible();
   expect(errors).toEqual([]);
@@ -119,7 +123,7 @@ test("JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示�
   await page.getByLabel("坐姿推胸 第1组重量").fill("20");
   await page.getByLabel("坐姿推胸 第1组次数").fill("10");
   await page.getByRole("button", { name: "完成训练", exact: true }).click();
-  await nav(page, "设置");
+  await nav(page, "数据管理");
   const backup = await downloadJSON(page, "导出完整 JSON 备份");
   expect(backup.mode).toBe("real");
   expect(backup.data.workoutSessions).toHaveLength(1);
@@ -152,13 +156,15 @@ test("JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示�
     .fill("覆盖当前数据");
   await page.getByRole("button", { name: "确认覆盖全部正式数据" }).click();
   await expect(page.getByText("恢复成功；", { exact: false })).toBeVisible();
-  await expect(page.getByRole("button", { name: /演示|正式空间/ })).toHaveCount(0);
-  await nav(page, "记录");
+  await expect(page.getByRole("button", { name: /演示|正式空间/ })).toHaveCount(
+    0,
+  );
+  await nav(page, "训练");
   await expect(page.locator(".session-row")).toHaveCount(1);
 });
 test("移动布局与深色模式无横向溢出、数字键盘属性", async ({ page }) => {
   await begin(page);
-  for (const label of ["首页", "记录", "趋势", "AI", "设置"]) {
+  for (const label of ["总览", "训练", "趋势", "AI 周报", "数据管理"]) {
     await nav(page, label);
     expect(
       await page.evaluate(
@@ -169,7 +175,7 @@ test("移动布局与深色模式无横向溢出、数字键盘属性", async ({
   }
   await page.getByLabel("显示模式").selectOption("dark");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await nav(page, "首页");
+  await nav(page, "总览");
   await oneExercise(page);
   await expect(page.getByLabel("坐姿推胸 第1组重量")).toHaveAttribute(
     "inputmode",
@@ -212,18 +218,18 @@ test("生产PWA manifest、离线冷开、离线创建编辑、联网保留和�
   const another = await context.newPage();
   await page.close();
   await another.goto("/");
-  await nav(another, "记录");
+  await nav(another, "训练");
   await another.locator(".session-row").first().click();
   await expect(another.getByLabel("坐姿推胸 第1组重量")).toHaveValue("22.5");
   await another.getByLabel("坐姿推胸 第1组次数").fill("13");
-  await another.getByRole("button", { name: "保存并关闭" }).click();
+  await another.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
   await context.setOffline(false);
   await another.evaluate(async () => {
     const r = await navigator.serviceWorker.ready;
     await r.update();
   });
   await another.reload();
-  await nav(another, "记录");
+  await nav(another, "训练");
   await another.locator(".session-row").first().click();
   await expect(another.getByLabel("坐姿推胸 第1组次数")).toHaveValue("13");
 });
@@ -234,7 +240,7 @@ test("隔离合成记录的图表和桌面布局视觉检查", async ({ page }) 
     path: "artifacts/mobile-dashboard.png",
     fullPage: true,
   });
-  for (const label of ["趋势", "AI", "设置"]) {
+  for (const label of ["趋势", "AI 周报", "数据管理"]) {
     await nav(page, label);
     expect(
       await page.evaluate(
@@ -250,7 +256,7 @@ test("隔离合成记录的图表和桌面布局视觉检查", async ({ page }) 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page
     .locator(".sidebar nav")
-    .getByRole("button", { name: "首页", exact: true })
+    .getByRole("button", { name: "总览", exact: true })
     .click();
   await page.screenshot({
     path: "artifacts/desktop-dashboard.png",

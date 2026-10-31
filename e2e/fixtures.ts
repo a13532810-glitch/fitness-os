@@ -20,7 +20,7 @@ export async function seedHistory(page: Page) {
       .locator(
         page.viewportSize()!.width > 900 ? ".sidebar nav" : ".bottom-nav",
       )
-      .getByRole("button", { name: "首页", exact: true })
+      .getByRole("button", { name: "总览", exact: true })
       .click();
   }
 }

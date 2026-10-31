@@ -9,7 +9,7 @@ import {
 import { resolve, extname } from "node:path";
 import assert from "node:assert/strict";
 import { chromium, webkit } from "@playwright/test";
-mkdirSync("artifacts/v1.1", { recursive: true });
+mkdirSync("artifacts/v1.2", { recursive: true });
 const prefix = "/fitness-os/";
 const dir = resolve("dist-pages");
 const types = {
@@ -82,9 +82,7 @@ try {
       page.on("pageerror", (e) => errors.push(e.message));
       await page.goto(url);
       await page.locator(".page-heading").waitFor();
-      await page
-        .getByRole("heading", { name: "今天，也为自己进步一点。" })
-        .waitFor();
+      await page.getByRole("heading", { name: "训练总览" }).waitFor();
       const registration = await page.evaluate(async () => {
         const r = await navigator.serviceWorker.ready;
         return {
@@ -128,14 +126,14 @@ try {
         await page
           .getByRole("button", { name: "移除动作 " + e, exact: true })
           .click();
-      await page.locator(".equipment-settings > summary").click();
+      await page.getByRole("button", { name: "动作详情", exact: true }).click();
       await page
         .getByLabel("器械标识", { exact: true })
         .fill("自动验收虚构机器");
       await page.getByLabel("动作方式 / 座椅设置").fill("测试设置");
       await page.getByLabel("坐姿推胸 第1组重量").fill("20");
       await page.getByLabel("坐姿推胸 第1组次数").fill("10");
-      await page.getByRole("button", { name: "保存并关闭" }).click();
+      await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
       await page.reload();
       await page
         .getByRole("button", { name: "还有一份训练草稿", exact: false })
@@ -149,7 +147,7 @@ try {
       await page.reload();
       await page
         .locator(".bottom-nav")
-        .getByRole("button", { name: "记录", exact: true })
+        .getByRole("button", { name: "训练", exact: true })
         .click();
       await page.locator(".session-row").first().click();
       assert.equal(
@@ -157,12 +155,12 @@ try {
         "10",
       );
       await page.getByLabel("坐姿推胸 第1组次数").fill("11");
-      await page.getByRole("button", { name: "保存并关闭" }).click();
+      await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
       await context.setOffline(false);
       await page.reload();
       await page
         .locator(".bottom-nav")
-        .getByRole("button", { name: "记录", exact: true })
+        .getByRole("button", { name: "训练", exact: true })
         .click();
       await page.locator(".session-row").first().click();
       assert.equal(
@@ -194,7 +192,7 @@ try {
     }
   }
   writeFileSync(
-    resolve("artifacts/v1.1/pages-subpath-checks.json"),
+    resolve("artifacts/v1.2/pages-subpath-checks.json"),
     JSON.stringify(
       { checkedAt: new Date().toISOString(), url, results },
       null,

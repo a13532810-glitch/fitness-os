@@ -1469,4 +1469,243 @@ small {
   align-self: start;
 }
 
-.weekly-bar-track b { flex:none; line-height:20px; margin-bottom:4px; }
+.weekly-bar-track b {
+  flex: none;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+/* V1.2: quieter hierarchy, consistent touch targets and a literal weight × reps row. */
+.page-heading h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  letter-spacing: -0.035em;
+}
+.page-heading {
+  margin-bottom: 24px;
+}
+.page-heading .eyebrow,
+.section-title .eyebrow {
+  display: none;
+}
+.page-heading p:empty {
+  display: none;
+}
+.bottom-nav {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.overview-toolbar {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -44px;
+  z-index: 2;
+}
+.overview-menu {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 12px 30px #0002;
+  max-width: 100%;
+}
+.overview-menu button {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  white-space: nowrap;
+}
+.set-head,
+.set-row {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 16px minmax(0, 1fr) 44px;
+  gap: 4px;
+  align-items: center;
+}
+.set-multiply {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--muted);
+  font-size: 18px !important;
+  pointer-events: none;
+}
+.set-row input {
+  min-width: 0;
+  width: 100%;
+  min-height: 48px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+.workout-header > div {
+  flex: 1;
+  min-width: 0;
+}
+.workout-header h2 {
+  font-size: 1.2rem;
+}
+.workout-header .eyebrow {
+  font-size: 11px;
+}
+.exercise-reference {
+  padding-bottom: 12px;
+}
+.exercise-reference p {
+  font-size: 13px;
+}
+.editor-menu,
+.action-picker {
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+.editor-menu {
+  display: grid;
+  gap: 8px;
+}
+.editor-menu label {
+  margin: 0;
+}
+.add-action-button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+}
+.action-picker {
+  margin-top: 12px;
+}
+.action-picker .add-exercise {
+  display: grid;
+  gap: 8px;
+}
+.action-picker select {
+  min-width: 0;
+  width: 100%;
+}
+.exercise-detail-link {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.equipment-settings {
+  margin-top: 8px;
+  padding-top: 16px;
+}
+.equipment-settings h3 {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.editor-actions {
+  position: sticky;
+  bottom: -1px;
+  background: var(--bg);
+  z-index: 3;
+  padding: 12px 0 max(12px, env(safe-area-inset-bottom));
+  gap: 6px;
+  border-top: 1px solid var(--line);
+}
+.editor-actions .secondary {
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+}
+.version-info {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 24px;
+}
+@media (max-width: 900px) {
+  .content {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom));
+  }
+  .page-heading h1 {
+    font-size: 26px;
+  }
+  .page-heading {
+    padding-right: 40px;
+  }
+  .workout-content {
+    padding-bottom: 0;
+  }
+  .workout-meta label {
+    margin-bottom: 8px;
+  }
+  .workout-progress {
+    margin: 8px 0 12px;
+  }
+  .exercise-toggle {
+    gap: 8px;
+  }
+  .exercise-toggle small {
+    font-size: 12px;
+  }
+  .set-tools {
+    gap: 4px;
+  }
+  .set-tools .copy-to {
+    display: none;
+  }
+}
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2378877e' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  padding-right: 32px;
+}
+.workout-meta select {
+  min-height: 48px;
+  padding-right: 28px;
+}
+.hero-copy {
+  width: 100%;
+}
+/* Keep lower inputs clear of the sticky actions while the software keyboard is open. */
+.workout-editor {
+  scroll-padding-bottom: 156px;
+}
+.set-row input {
+  scroll-margin-bottom: 156px;
+}
+.exercise-grid .exercise-card {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+.exercise-card .exercise-card-top {
+  display: contents;
+}
+.exercise-card-top .exercise-index {
+  display: none;
+}
+.exercise-card-top .badge {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+.exercise-grid .exercise-card h3 {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  align-self: center;
+}
+.exercise-card .performance-row,
+.exercise-card .equipment {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.exercise-card .performance-row {
+  padding: 8px 12px;
+}
+.exercise-grid {
+  gap: 12px;
+}

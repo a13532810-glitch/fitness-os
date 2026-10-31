@@ -14,6 +14,17 @@ for (const width of [320, 375, 390, 430])
       page.getByRole("button", { name: /演示|开启我的|正式空间/ }),
     ).toHaveCount(0);
     const nav = async (name: string) => {
+      if (name === "数据管理") {
+        await page
+          .locator(".bottom-nav")
+          .getByRole("button", { name: "总览", exact: true })
+          .click();
+        await page.getByRole("button", { name: "总览更多操作" }).click();
+        await page
+          .getByRole("button", { name: "数据管理", exact: true })
+          .click();
+        return;
+      }
       await page
         .locator(".bottom-nav")
         .getByRole("button", { name, exact: true })
@@ -112,7 +123,7 @@ for (const width of [320, 375, 390, 430])
     });
     await page.reload();
     for (const theme of ["light", "dark"]) {
-      await nav("设置");
+      await nav("数据管理");
       await page.getByLabel("显示模式").selectOption(theme);
       await nav("趋势");
       await expect(page.locator(".bar-chart > div")).toHaveCount(8);
