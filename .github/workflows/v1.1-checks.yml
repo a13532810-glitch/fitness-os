@@ -1,7 +1,7 @@
 name: V1.1 development checks (no deployment)
 on:
   push:
-    branches: ["feature/**", "codex/**"]
+    branches: ["feature/**", "codex/**", "fix/**"]
   pull_request:
     branches: [main]
 permissions:

@@ -31,7 +31,7 @@ test("真正关闭浏览器进程后，持久配置中的训练草稿仍在", as
     let browser = await engine.launchPersistentContext(directory, options);
     let page = await browser.newPage();
     await page.goto("http://127.0.0.1:4181");
-    await page.getByRole("button", { name: "开启我的训练空间" }).click();
+    await expect(page.locator(".page-heading")).toBeVisible();
     await page.getByRole("button", { name: "开始记录", exact: false }).click();
     await page.getByLabel("坐姿推胸 第1组重量").fill("27.5");
     await page.getByLabel("坐姿推胸 第1组次数").fill("9");
@@ -61,7 +61,7 @@ test("实际新版本Service Worker激活后 IndexedDB 草稿保持完整", asyn
   cpSync(resolve("dist"), join(backup, "original"), { recursive: true });
   try {
     await page.goto("/");
-    await page.getByRole("button", { name: "开启我的训练空间" }).click();
+    await expect(page.locator(".page-heading")).toBeVisible();
     await page.evaluate(async () => {
       await navigator.serviceWorker.ready;
     });
@@ -113,7 +113,7 @@ test("4动作12组完整录入流程计时（自动操作，不代表真人速�
   page,
 }, info) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "开启我的训练空间" }).click();
+  await expect(page.locator(".page-heading")).toBeVisible();
   await page.getByRole("button", { name: "调整计划", exact: true }).click();
   for (const details of await page.locator(".exercise-details").all()) {
     await details.locator("summary").click();

@@ -1,8 +1,9 @@
+import { seedHistory } from "./fixtures";
 import { test, expect, type Page } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 async function begin(page: Page) {
   await page.goto("/");
-  await page.getByRole("button", { name: "开启我的训练空间" }).click();
+  await expect(page.locator(".page-heading")).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "今天，也为自己进步一点。" }),
   ).toBeVisible();
@@ -151,16 +152,7 @@ test("JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示�
     .fill("覆盖当前数据");
   await page.getByRole("button", { name: "确认覆盖全部正式数据" }).click();
   await expect(page.getByText("恢复成功；", { exact: false })).toBeVisible();
-  await page.getByRole("button", { name: "体验虚构演示", exact: true }).click();
-  await nav(page, "设置");
-  await expect(
-    page.getByRole("button", { name: "导出完整 JSON 备份" }),
-  ).toBeDisabled();
-  await nav(page, "AI");
-  await expect(
-    page.getByRole("button", { name: "导出分析 JSON" }),
-  ).toBeDisabled();
-  await page.getByRole("button", { name: "返回正式", exact: true }).click();
+  await expect(page.getByRole("button", { name: /演示|正式空间/ })).toHaveCount(0);
   await nav(page, "记录");
   await expect(page.locator(".session-row")).toHaveCount(1);
 });
@@ -235,12 +227,9 @@ test("生产PWA manifest、离线冷开、离线创建编辑、联网保留和�
   await another.locator(".session-row").first().click();
   await expect(another.getByLabel("坐姿推胸 第1组次数")).toHaveValue("13");
 });
-test("虚构演示的图表和桌面布局视觉检查", async ({ page }) => {
+test("隔离合成记录的图表和桌面布局视觉检查", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "先体验虚构演示" }).click();
-  await expect(
-    page.getByText("虚构演示", { exact: true }).first(),
-  ).toBeVisible();
+  await seedHistory(page);
   await page.screenshot({
     path: "artifacts/mobile-dashboard.png",
     fullPage: true,

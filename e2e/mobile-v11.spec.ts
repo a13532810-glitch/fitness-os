@@ -1,7 +1,8 @@
+import { seedHistory, clearTestHistory } from "./fixtures";
 import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 test.use({ deviceScaleFactor: 1 });
-const root = "artifacts/v1.1/after";
+const root = "artifacts/v1.1.1/after";
 mkdirSync(root, { recursive: true });
 async function nav(page: Page, label: string) {
   const region =
@@ -24,7 +25,7 @@ for (const width of [320, 375, 390, 430, 1440]) {
     const errors: string[] = [];
     page.on("pageerror", (e) => errors.push(e.message));
     await page.goto("/");
-    await page.getByRole("button", { name: "先体验虚构演示" }).click();
+    await seedHistory(page);
     for (const theme of ["light", "dark"]) {
       await nav(page, "设置");
       await page.getByLabel("显示模式").selectOption(theme);
@@ -72,9 +73,7 @@ for (const width of [320, 375, 390, 430, 1440]) {
     }
     await nav(page, "设置");
     await page.getByLabel("显示模式").selectOption("light");
-    await page
-      .getByRole("button", { name: "返回正式空间", exact: true })
-      .click();
+    await clearTestHistory(page);
     await nav(page, "趋势");
     await expect(
       page.getByText("暂无足够数据", { exact: true }).first(),
@@ -131,7 +130,7 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
   page,
 }, info) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "开启我的训练空间" }).click();
+  await expect(page.locator(".page-heading")).toBeVisible();
   await page.getByRole("button", { name: "开始记录", exact: false }).click();
   const weight = page.getByLabel("坐姿推胸 第1组重量");
   const reps = page.getByLabel("坐姿推胸 第1组次数");
@@ -225,7 +224,7 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
 });
 test("1000次虚构历史的页面响应与历史分页", async ({ page }, info) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "开启我的训练空间" }).click();
+  await expect(page.locator(".page-heading")).toBeVisible();
   await page.getByRole("button", { name: "开始记录", exact: false }).click();
   await page.getByRole("button", { name: "保存并关闭" }).click();
   await page.evaluate(async () => {

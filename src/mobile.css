@@ -1334,3 +1334,139 @@ small {
     flex-wrap: wrap;
   }
 }
+
+/* V1.1.1: compact weekly chart, preserving all eight weeks in a labeled scroll region. */
+.weekly-chart-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.bar-chart {
+  height: auto;
+  min-width: 384px;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(42px, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0 0 6px;
+}
+.bar-chart > div {
+  display: grid;
+  grid-template-rows: 156px 20px;
+  gap: 4px;
+  justify-items: center;
+  align-items: center;
+}
+.bar-chart b,
+.bar-chart small {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+.weekly-bar-track {
+  height: 156px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.bar-chart .weekly-bar-track > span {
+  display: block;
+  background: var(--accent, #35644d);
+  width: 65%;
+  max-width: 30px;
+}
+.weekly-empty {
+  padding: 16px 0 8px;
+}
+.weekly-empty p {
+  margin: 6px 0;
+}
+.modal:has(.body-metric-form) {
+  width: min(460px, calc(100% - 24px));
+  padding: 20px;
+  max-height: calc(100dvh - 24px);
+}
+.body-metric-form {
+  display: grid;
+  gap: 14px;
+}
+.body-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.body-metric-grid .metric-date {
+  grid-column: 1/-1;
+}
+.body-metric-form label {
+  margin: 0;
+  min-width: 0;
+}
+.body-metric-form input {
+  min-height: 48px;
+  width: 100%;
+  min-width: 0;
+}
+.body-metric-form textarea {
+  min-height: 70px;
+  height: 70px;
+}
+.body-metric-form > .primary {
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+}
+.body-metric-form > .muted {
+  margin: 0;
+  font-size: 12px;
+}
+.modal-header .icon-button {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 10px;
+  flex: none;
+}
+.modal-header .icon-button svg {
+  width: 20px;
+  height: 20px;
+}
+.modal-header .icon-button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+@media (max-width: 350px) {
+  .body-metric-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .modal:has(.body-metric-form) {
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 700px) {
+  .top-status {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}
+/* Legacy mobile dialogs retained a left-anchored sheet margin after becoming narrower. */
+@media (max-width: 700px) {
+  .modal {
+    margin: auto;
+    inset: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+.panel:has(.weekly-empty),
+.panel:has(.weekly-chart-scroll) {
+  align-self: start;
+}
+
+.weekly-bar-track b { flex:none; line-height:20px; margin-bottom:4px; }
