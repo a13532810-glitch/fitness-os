@@ -81,7 +81,7 @@ try {
       });
       page.on("pageerror", (e) => errors.push(e.message));
       await page.goto(url);
-      await page.getByRole("button", { name: "开启我的训练空间" }).click();
+      await page.locator(".page-heading").waitFor();
       await page
         .getByRole("heading", { name: "今天，也为自己进步一点。" })
         .waitFor();

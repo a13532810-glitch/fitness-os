@@ -48,8 +48,8 @@ import {
   rememberedExercise,
 } from "./db";
 import {
+  type BodyMetric,
   type Dataset,
-  type Mode,
   type Kind,
   type Session,
   type SessionItem,
@@ -75,6 +75,7 @@ import {
   suggestion,
   nextKind,
   weekCompleted,
+  weeklyCounts,
   packageAnalysis,
   analysisMarkdown,
   aiPrompt,
@@ -204,62 +205,14 @@ class Boundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   }
 }
 export default function App() {
-  const [mode, setMode] = useState<Mode | null>(() => {
-    try {
-      const m = localStorage.getItem("fitness-os-mode");
-      return m === "real" || m === "demo" ? m : null;
-    } catch {
-      return null;
-    }
-  });
-  function choose(m: Mode) {
-    try {
-      localStorage.setItem("fitness-os-mode", m);
-    } catch {
-      /* mode preference is optional; records live in IndexedDB */
-    }
-    setMode(m);
-  }
   return (
     <Boundary>
-      {mode ? (
-        <Workspace key={mode} mode={mode} switchMode={choose} />
-      ) : (
-        <main className="welcome">
-          <div className="brand-icon">
-            <Activity />
-          </div>
-          <span className="eyebrow">YOUR OWN PACE</span>
-          <h1>
-            把训练，
-            <br />
-            变成看得见的进步。
-          </h1>
-          <p>
-            一个只属于你的训练空间。
-            <br />
-            无需账号，记录留在这台设备。
-          </p>
-          <button className="primary" onClick={() => choose("real")}>
-            开启我的训练空间 <ArrowRight size={18} />
-          </button>
-          <button className="secondary" onClick={() => choose("demo")}>
-            先体验虚构演示
-          </button>
-          <small>正式数据与演示数据分别存储，可随时切换。</small>
-        </main>
-      )}
+      <Workspace />
     </Boundary>
   );
 }
-function Workspace({
-  mode,
-  switchMode,
-}: {
-  mode: Mode;
-  switchMode: (m: Mode) => void;
-}) {
-  const db = useMemo(() => new FitnessDB(mode), [mode]);
+function Workspace() {
+  const db = useMemo(() => new FitnessDB("real"), []);
   const [ready, setReady] = useState(false);
   const [bootError, setBootError] = useState("");
   const [page, setPage] = useState<Page>("home");
@@ -423,26 +376,9 @@ function Workspace({
             ) : (
               <>{touch} 本地保存</>
             )}
-            <button
-              className={"mode-chip " + (mode === "demo" ? "demo" : "")}
-              onClick={() => {
-                if (!editor) switchMode(mode === "real" ? "demo" : "real");
-              }}
-            >
-              {mode === "demo" ? "虚构演示" : "正式空间"}
-            </button>
           </div>
         </header>
         <main className="content" data-page={page}>
-          {mode === "demo" && (
-            <div className="demo-banner">
-              <Sparkles size={17} />
-              <span>
-                你正在体验独立演示空间。所有成绩均为虚构，不进入正式趋势、周报或备份。
-              </span>
-              <button onClick={() => switchMode("real")}>返回正式</button>
-            </div>
-          )}
           {needRefresh && (
             <div className="notice">
               <span>新版本已就绪，草稿会保留。请保存当前记录后更新。</span>
@@ -525,15 +461,12 @@ function Workspace({
           {page === "trends" && (
             <Trends data={data} db={db} notify={setToast} />
           )}
-          {page === "ai" && (
-            <AIPage data={data} db={db} mode={mode} notify={setToast} />
-          )}
+          {page === "ai" && <AIPage data={data} db={db} notify={setToast} />}
           {page === "settings" && (
             <SettingsPage
               data={data}
               db={db}
-              mode={mode}
-              switchMode={switchMode}
+
               notify={setToast}
               offlineReady={offlineReady}
               onPlans={() => setShowPlans(true)}
@@ -1341,6 +1274,7 @@ function Trends({
   const [technique, setTechnique] = useState("");
   const [month, setMonth] = useState(localDate().slice(0, 7));
   const [bodyForm, setBodyForm] = useState(false);
+  const [editingBody, setEditingBody] = useState<BodyMetric | undefined>();
   const [goalForm, setGoalForm] = useState<Goal | null>(null);
   const [filterDay, setFilterDay] = useState("");
   const all = records(trendData, exerciseId);
@@ -1383,16 +1317,7 @@ function Trends({
     (_, i) => `${month}-${String(i + 1).padStart(2, "0")}`,
   );
   const offset = (new Date(first + "T12:00:00").getDay() + 6) % 7;
-  const weeks = Array.from({ length: 8 }, (_, i) => {
-    const from = shiftDate(weekStart(), -(7 - i) * 7),
-      to = shiftDate(from, 6);
-    return {
-      from,
-      count: data.workoutSessions.filter(
-        (s) => s.status === "completed" && s.date >= from && s.date <= to,
-      ).length,
-    };
-  });
+  const weeks = weeklyCounts(data.workoutSessions);
   return (
     <>
       <div className="page-heading">
@@ -1551,24 +1476,46 @@ function Trends({
         <section className="panel">
           <h2>每周训练次数</h2>
           <p className="muted">自然周，周一开始；仅计已完成训练</p>
-          <div className="bar-chart">
-            {weeks.map((w) => (
-              <div key={w.from}>
-                <b>{w.count}</b>
-                <span
-                  style={{
-                    height:
-                      Math.max(
-                        4,
-                        (w.count / Math.max(1, ...weeks.map((x) => x.count))) *
-                          130,
-                      ) + "px",
-                  }}
-                />
-                <small>{w.from.slice(5)}</small>
+          {weeks.some((w) => w.count > 0) && (
+            <p className="muted">最近 8 周 · 左右滑动查看</p>
+          )}
+          {weeks.some((w) => w.count > 0) ? (
+            <div
+              className="weekly-chart-scroll"
+              tabIndex={0}
+              role="region"
+              aria-label="最近八周训练次数，可横向滚动"
+            >
+              <div className="bar-chart">
+                {weeks.map((w) => (
+                  <div key={w.from}>
+                    <div className="weekly-bar-track">
+                      <b>{w.count}</b>
+                      <span
+                        style={{
+                          height:
+                            Math.max(
+                              4,
+                              (w.count /
+                                Math.max(1, ...weeks.map((x) => x.count))) *
+                                130,
+                            ) + "px",
+                        }}
+                      />
+                    </div>
+                    <small>{w.from.slice(5).replace("-", "/")}</small>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="weekly-empty">
+              <strong>暂无已完成训练</strong>
+              <p className="muted">
+                完成第一次训练后，这里会显示每周训练趋势。
+              </p>
+            </div>
+          )}
           <div className="inline-note">
             <CalendarDays size={18} />
             <span>稳定出勤，比追求一次完美更重要。</span>
@@ -1878,6 +1825,16 @@ function Trends({
                   <small>{b.notes}</small>
                 </span>
                 <button
+                  className="text-button"
+                  aria-label={"编辑身体指标" + b.date}
+                  onClick={() => {
+                    setEditingBody(b);
+                    setBodyForm(true);
+                  }}
+                >
+                  编辑
+                </button>
+                <button
                   className="icon-button danger"
                   aria-label={"删除身体指标" + b.date}
                   onClick={async () => {
@@ -1896,7 +1853,15 @@ function Trends({
         </details>
       </Section>
       {bodyForm && (
-        <BodyForm db={db} close={() => setBodyForm(false)} notify={notify} />
+        <BodyForm
+          db={db}
+          metric={editingBody}
+          close={() => {
+            setBodyForm(false);
+            setEditingBody(undefined);
+          }}
+          notify={notify}
+        />
       )}{" "}
       {goalForm && (
         <GoalForm
@@ -1912,20 +1877,23 @@ function Trends({
 }
 function BodyForm({
   db,
+  metric,
   close,
   notify,
 }: {
   db: FitnessDB;
+  metric?: BodyMetric;
   close: () => void;
   notify: (s: string) => void;
 }) {
-  const [date, setDate] = useState(localDate());
-  const [weight, setWeight] = useState("");
-  const [waist, setWaist] = useState("");
-  const [notes, setNotes] = useState("");
+  const [date, setDate] = useState(metric?.date ?? localDate());
+  const [weight, setWeight] = useState(String(metric?.weight ?? ""));
+  const [waist, setWaist] = useState(String(metric?.waist ?? ""));
+  const [notes, setNotes] = useState(metric?.notes ?? "");
   return (
     <Modal title="记录身体指标" onClose={close}>
       <form
+        className="body-metric-form"
         onSubmit={async (e) => {
           e.preventDefault();
           if (!weight && !waist) {
@@ -1933,8 +1901,9 @@ function BodyForm({
             return;
           }
           try {
-            await db.bodyMetrics.add({
-              ...stamp(),
+            await db.bodyMetrics.put({
+              ...(metric ?? stamp()),
+              updatedAt: new Date().toISOString(),
               date,
               weight: num(weight),
               waist: num(waist),
@@ -1947,8 +1916,8 @@ function BodyForm({
           }
         }}
       >
-        <div className="form-grid">
-          <label>
+        <div className="body-metric-grid">
+          <label className="metric-date">
             测量日期
             <input
               type="date"
@@ -1984,8 +1953,9 @@ function BodyForm({
           </label>
         </div>
         <label>
-          测量条件或备注
+          测量条件或备注（选填）
           <textarea
+            rows={2}
             maxLength={20000}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
@@ -2155,12 +2125,10 @@ function GoalForm({
 function AIPage({
   data,
   db,
-  mode,
   notify,
 }: {
   data: Dataset;
   db: FitnessDB;
-  mode: Mode;
   notify: (s: string) => void;
 }) {
   const overview = data.exercises
@@ -2183,7 +2151,7 @@ function AIPage({
   const [busy, setBusy] = useState(false);
   function exportPackage(markdown: boolean) {
     try {
-      const p = packageAnalysis(data, mode);
+      const p = packageAnalysis(data, "real");
       download(
         `Fitness-OS-分析-${localDate()}.${markdown ? "md" : "json"}`,
         markdown ? analysisMarkdown(p) : JSON.stringify(p, null, 2),
@@ -2212,7 +2180,7 @@ function AIPage({
         <div className="button-row">
           <button
             className="primary"
-            disabled={mode === "demo"}
+
             onClick={() => exportPackage(false)}
           >
             <ArrowDownToLine size={18} />
@@ -2220,7 +2188,7 @@ function AIPage({
           </button>
           <button
             className="secondary"
-            disabled={mode === "demo"}
+
             onClick={() => exportPackage(true)}
           >
             <FileText size={18} />
@@ -2241,9 +2209,6 @@ function AIPage({
             复制 ChatGPT 分析提示词
           </button>
         </div>
-        {mode === "demo" && (
-          <p className="muted">演示模式不生成正式分析包，请切换到正式空间。</p>
-        )}
         <details>
           <summary>数据包包含什么？</summary>
           <p>
@@ -2369,8 +2334,7 @@ function AIPage({
             .map((r) => (
               <details className="panel report" key={r.id}>
                 <summary>
-                  {fmt(r.week)} · 周报{" "}
-                  <Badge>{mode === "demo" ? "虚构演示" : "本人保存"}</Badge>
+                  {fmt(r.week)} · 周报 <Badge>本人保存</Badge>
                 </summary>
                 <div className="report-text">{r.text}</div>
                 <button
@@ -2421,16 +2385,12 @@ function CountList({ data }: { data: Dataset }) {
 function SettingsPage({
   data,
   db,
-  mode,
-  switchMode,
   notify,
   offlineReady,
   onPlans,
 }: {
   data: Dataset;
   db: FitnessDB;
-  mode: Mode;
-  switchMode: (m: Mode) => void;
   notify: (s: string) => void;
   offlineReady: boolean;
   onPlans: () => void;
@@ -2482,9 +2442,6 @@ function SettingsPage({
           <h1>你的空间，由你掌握。</h1>
           <p>计划、备份和设备设置，都在这里。</p>
         </div>
-        <Badge green={mode === "real"}>
-          {mode === "real" ? "正式空间" : "独立虚构演示空间"}
-        </Badge>
       </div>
       <div className="settings-shortcuts panel">
         <button onClick={onPlans}>
@@ -2553,7 +2510,7 @@ function SettingsPage({
           </small>
         </section>
         <section className="panel">
-          <h2>外观与空间</h2>
+          <h2>外观</h2>
           <label>
             显示模式
             <select
@@ -2567,13 +2524,6 @@ function SettingsPage({
               <option value="dark">深色</option>
             </select>
           </label>
-          <p className="muted">正式与演示分别存入两个 IndexedDB 数据库。</p>
-          <button
-            className="secondary"
-            onClick={() => switchMode(mode === "real" ? "demo" : "real")}
-          >
-            {mode === "real" ? "体验虚构演示" : "返回正式空间"}
-          </button>
         </section>
       </div>
       <Section title="备份与恢复" eyebrow="KEEP A COPY, KEEP YOUR PROGRESS">
@@ -2594,7 +2544,7 @@ function SettingsPage({
           <div className="button-row">
             <button
               className="primary"
-              disabled={mode === "demo" || busy}
+              disabled={busy}
               onClick={async () => {
                 try {
                   const backup = await makeBackup(db);
@@ -2644,7 +2594,7 @@ function SettingsPage({
               aria-label="选择备份文件"
               type="file"
               accept=".json,application/json"
-              disabled={mode === "demo" || busy}
+              disabled={busy}
               onChange={async (e) => {
                 const file = e.target.files?.[0];
                 e.target.value = "";
@@ -2671,7 +2621,7 @@ function SettingsPage({
           <label>
             恢复方式
             <select
-              disabled={busy || mode === "demo"}
+              disabled={busy}
               value={importMode}
               onChange={async (e) => {
                 const m = e.target.value as "merge" | "replace";
