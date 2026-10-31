@@ -1,0 +1,7 @@
+{
+  "kind": "automated-browser-workflow",
+  "exercises": 4,
+  "sets": 12,
+  "seconds": 1.243,
+  "limitations": "自动填表实测，不能证明真人在iPhone上2–3分钟完成；需真实设备人工计时。"
+}

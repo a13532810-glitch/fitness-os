@@ -4,7 +4,7 @@ import { cpSync, mkdtempSync, rmSync, symlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
-test("真实 V1.0 构建 → V1.1 SW更新 → 旧代码回滚：历史与草稿逐字段保持", async ({
+test("真实 V1.0 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持", async ({
   page,
 }) => {
   test.setTimeout(120000);
@@ -97,14 +97,14 @@ test("真实 V1.0 构建 → V1.1 SW更新 → 旧代码回滚：历史与草稿
     await page.getByRole("button", { name: "更新应用", exact: true }).click();
     await expect(page.locator('meta[name="fitness-build"]')).toHaveAttribute(
       "content",
-      "1.1.1",
+      "1.2.0",
     );
     expect(await read()).toEqual(before);
     await page
       .getByRole("button", { name: "还有一份训练草稿", exact: false })
       .click();
     await expect(page.getByLabel("高位下拉 第1组重量")).toHaveValue("27.5");
-    await page.getByRole("button", { name: "保存并关闭" }).click();
+    await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
     // Code rollback installs the old app shell without downgrading or deleting IndexedDB.
     rmSync(resolve("dist"), { recursive: true, force: true });
     cpSync(join(temp, "v10"), resolve("dist"), { recursive: true });

@@ -5,6 +5,12 @@ test.use({ deviceScaleFactor: 1 });
 const root = "artifacts/v1.1.1/after";
 mkdirSync(root, { recursive: true });
 async function nav(page: Page, label: string) {
+  if (label === "数据管理") {
+    await nav(page, "总览");
+    await page.getByRole("button", { name: "总览更多操作" }).click();
+    await page.getByRole("button", { name: "数据管理", exact: true }).click();
+    return;
+  }
   const region =
     page.viewportSize()!.width > 900 ? ".sidebar nav" : ".bottom-nav";
   await page
@@ -27,14 +33,14 @@ for (const width of [320, 375, 390, 430, 1440]) {
     await page.goto("/");
     await seedHistory(page);
     for (const theme of ["light", "dark"]) {
-      await nav(page, "设置");
+      await nav(page, "数据管理");
       await page.getByLabel("显示模式").selectOption(theme);
       for (const [name, label] of [
-        ["home", "首页"],
-        ["record", "记录"],
+        ["home", "总览"],
+        ["record", "训练"],
         ["trends", "趋势"],
-        ["ai", "AI"],
-        ["settings", "设置"],
+        ["ai", "AI 周报"],
+        ["settings", "数据管理"],
       ]) {
         await nav(page, label);
         await expect
@@ -49,7 +55,7 @@ for (const width of [320, 375, 390, 430, 1440]) {
           fullPage: true,
         });
       }
-      await nav(page, "首页");
+      await nav(page, "总览");
       await page
         .getByRole("button", { name: "开始记录", exact: false })
         .click();
@@ -61,7 +67,9 @@ for (const width of [320, 375, 390, 430, 1440]) {
       await expect(dialog.locator(".exercise-reference").first()).toContainText(
         "上次",
       );
-      await expect(dialog.getByLabel("训练时长（分钟）")).not.toBeVisible();
+      await expect(
+        dialog.getByLabel("训练时长（分钟，可选）"),
+      ).not.toBeVisible();
       await expect
         .poll(() => dialog.evaluate((e) => e.scrollWidth <= e.clientWidth))
         .toBe(true);
@@ -69,9 +77,9 @@ for (const width of [320, 375, 390, 430, 1440]) {
         path: `${root}/${info.project.name}-editor-${width}-${theme}.png`,
         fullPage: false,
       });
-      await page.getByRole("button", { name: "保存并关闭" }).click();
+      await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
     }
-    await nav(page, "设置");
+    await nav(page, "数据管理");
     await page.getByLabel("显示模式").selectOption("light");
     await clearTestHistory(page);
     await nav(page, "趋势");
@@ -82,9 +90,12 @@ for (const width of [320, 375, 390, 430, 1440]) {
       path: `${root}/${info.project.name}-empty-${width}.png`,
       fullPage: true,
     });
-    await nav(page, "首页");
+    await nav(page, "总览");
     await page.getByRole("button", { name: "开始记录", exact: false }).click();
-    await page.locator(".equipment-settings > summary").first().click();
+    await page
+      .getByRole("button", { name: "动作详情", exact: true })
+      .first()
+      .click();
     await page
       .getByRole("dialog")
       .getByLabel("器械标识", { exact: true })
@@ -108,8 +119,8 @@ for (const width of [320, 375, 390, 430, 1440]) {
       path: `${root}/${info.project.name}-large-long-editor-${width}.png`,
       fullPage: false,
     });
-    await page.getByRole("button", { name: "保存并关闭" }).click();
-    for (const label of ["首页", "记录", "趋势", "AI", "设置"]) {
+    await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
+    for (const label of ["总览", "训练", "趋势", "AI 周报", "数据管理"]) {
       await nav(page, label);
       await expect
         .poll(() =>
@@ -162,7 +173,10 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
   await expect(page.getByLabel("坐姿推胸 第4组重量")).toHaveValue("25");
   await expect(page.getByLabel("坐姿推胸 第4组次数")).toHaveValue("");
   await page.getByLabel("坐姿推胸 第4组次数").fill("7");
-  await page.locator(".equipment-settings > summary").first().click();
+  await page
+    .getByRole("button", { name: "动作详情", exact: true })
+    .first()
+    .click();
   await page
     .getByRole("dialog")
     .getByLabel("器械标识", { exact: true })
@@ -194,7 +208,7 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
     path: `${root}/${info.project.name}-complete.png`,
     fullPage: true,
   });
-  await nav(page, "首页");
+  await nav(page, "总览");
   await page.getByRole("button", { name: "开始记录", exact: false }).click();
   // Next is B; switching to A loads A's remembered configuration, keeping actual inputs blank.
   await page.getByLabel("训练类型").selectOption("A");
@@ -206,14 +220,17 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
       .first(),
   ).toBeVisible();
   await expect(page.getByLabel("坐姿推胸 第1组重量")).toHaveValue("");
-  await page.locator(".equipment-settings > summary").first().click();
+  await page
+    .getByRole("button", { name: "动作详情", exact: true })
+    .first()
+    .click();
   await expect(
     page.getByRole("dialog").getByLabel("器械标识", { exact: true }).first(),
   ).toHaveValue("胸推V11");
   await expect(page.getByLabel("动作方式 / 座椅设置").first()).toHaveValue(
     "座椅2",
   );
-  await page.getByRole("button", { name: "保存并关闭" }).click();
+  await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
   await nav(page, "趋势");
   for (const label of ["最近 4 周", "最近 12 周", "全部历史"]) {
     await page.getByRole("button", { name: label, exact: true }).click();
@@ -226,7 +243,7 @@ test("1000次虚构历史的页面响应与历史分页", async ({ page }, info)
   await page.goto("/");
   await expect(page.locator(".page-heading")).toBeVisible();
   await page.getByRole("button", { name: "开始记录", exact: false }).click();
-  await page.getByRole("button", { name: "保存并关闭" }).click();
+  await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
   await page.evaluate(async () => {
     const db = await new Promise<IDBDatabase>((resolve, reject) => {
       const r = indexedDB.open("fitness-os-real");
@@ -275,14 +292,14 @@ test("1000次虚构历史的页面响应与历史分页", async ({ page }, info)
   await expect(page.locator(".page-heading")).toBeVisible();
   const timings: Record<string, number> = { coldLoad: Date.now() - boot };
   expect(timings.coldLoad).toBeLessThan(5000);
-  for (const label of ["记录", "趋势", "首页", "AI"]) {
+  for (const label of ["训练", "趋势", "总览", "AI 周报"]) {
     const start = Date.now();
     await nav(page, label);
     await expect(page.locator(".page-heading")).toBeVisible();
     timings[label] = Date.now() - start;
     expect(timings[label]).toBeLessThan(5000);
   }
-  await nav(page, "记录");
+  await nav(page, "训练");
   await expect(page.locator(".session-row")).toHaveCount(30);
   await page.getByRole("button", { name: "查看更多训练" }).click();
   await expect(page.locator(".session-row")).toHaveCount(60);

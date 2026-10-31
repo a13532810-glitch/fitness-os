@@ -28,6 +28,7 @@ import {
   Leaf,
   LoaderCircle,
   Moon,
+  MoreHorizontal,
   Plus,
   Settings2,
   ShieldCheck,
@@ -83,18 +84,18 @@ import {
 import {
   download,
   makeBackup,
+  integrity,
   previewRestore,
   restore,
   counts,
   type RecoveryPreview,
 } from "./backup";
-type Page = "home" | "record" | "trends" | "ai" | "settings";
+type Page = "home" | "record" | "trends" | "ai" | "data";
 const nav = [
-  ["home", HomeIcon, "首页"],
-  ["record", Dumbbell, "记录"],
+  ["home", HomeIcon, "总览"],
+  ["record", Dumbbell, "训练"],
   ["trends", TrendingUp, "趋势"],
-  ["ai", Sparkles, "AI"],
-  ["settings", Settings2, "设置"],
+  ["ai", Sparkles, "AI 周报"],
 ] as const;
 const fmt = (s: string) =>
   new Date(s + "T12:00:00").toLocaleDateString("zh-CN", {
@@ -215,7 +216,13 @@ function Workspace() {
   const db = useMemo(() => new FitnessDB("real"), []);
   const [ready, setReady] = useState(false);
   const [bootError, setBootError] = useState("");
-  const [page, setPage] = useState<Page>("home");
+  const [page, setPage] = useState<Page>(() => {
+    const p = location.hash.slice(1);
+    return (
+      ["home", "record", "trends", "ai", "data"].includes(p) ? p : "home"
+    ) as Page;
+  });
+  const [homeMenu, setHomeMenu] = useState(false);
   const [toast, setToast] = useState("");
   const [online, setOnline] = useState(navigator.onLine);
   const [editor, setEditor] = useState<{
@@ -296,8 +303,22 @@ function Workspace() {
       ),
     });
   }
+  useEffect(() => {
+    const sync = () => {
+      const p = location.hash.slice(1);
+      setPage(
+        (["home", "record", "trends", "ai", "data"].includes(p)
+          ? p
+          : "home") as Page,
+      );
+    };
+    addEventListener("hashchange", sync);
+    return () => removeEventListener("hashchange", sync);
+  }, []);
   function move(p: Page) {
+    location.hash = p;
     setPage(p);
+    setHomeMenu(false);
     window.scrollTo({ top: 0 });
   }
   if (bootError)
@@ -322,7 +343,7 @@ function Workspace() {
     record: "训练记录",
     trends: "进步趋势",
     ai: "AI 周报",
-    settings: "我的设置",
+    data: "数据管理",
   };
   return (
     <div className="app-shell">
@@ -394,14 +415,12 @@ function Workspace() {
             <section className="completion-card" aria-label="训练完成总结">
               <CheckCircle2 size={32} />
               <span className="eyebrow">本次训练已保存</span>
-              <h2>又完成了一次，做得踏实。</h2>
+              <h2>训练完成</h2>
               <p>
                 {names[summary.session.kind]} · {totals(summary.sets).sets} 组 ·{" "}
                 {totals(summary.sets).reps} 次
               </p>
-              <p className="muted">
-                实际成绩与历史趋势已更新，下次继续自己的节奏。
-              </p>
+
               <div className="button-row">
                 <button
                   className="primary"
@@ -440,14 +459,43 @@ function Workspace() {
             </section>
           )}
           {page === "home" && (
-            <Dashboard
-              data={data}
-              start={start}
-              open={open}
-              plans={() => setShowPlans(true)}
-              move={move}
-              busy={busy}
-            />
+            <>
+              <div className="overview-toolbar">
+                <button
+                  className="icon-button"
+                  aria-label="总览更多操作"
+                  aria-expanded={homeMenu}
+                  onClick={() => setHomeMenu(!homeMenu)}
+                >
+                  <MoreHorizontal />
+                </button>
+                {homeMenu && (
+                  <div className="overview-menu">
+                    <button onClick={() => move("data")}>
+                      <Database size={18} />
+                      数据管理
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowPlans(true);
+                        setHomeMenu(false);
+                      }}
+                    >
+                      <Dumbbell size={18} />
+                      训练计划与动作库
+                    </button>
+                  </div>
+                )}
+              </div>
+              <Dashboard
+                data={data}
+                start={start}
+                open={open}
+                plans={() => setShowPlans(true)}
+                move={move}
+                busy={busy}
+              />
+            </>
           )}
           {page === "record" && (
             <RecordPage
@@ -462,7 +510,7 @@ function Workspace() {
             <Trends data={data} db={db} notify={setToast} />
           )}
           {page === "ai" && <AIPage data={data} db={db} notify={setToast} />}
-          {page === "settings" && (
+          {page === "data" && (
             <SettingsPage
               data={data}
               db={db}
@@ -472,9 +520,6 @@ function Workspace() {
               onPlans={() => setShowPlans(true)}
             />
           )}
-          <footer className="page-footer">
-            按自己的节奏，持续向前。<span>Fitness OS · 本地优先</span>
-          </footer>
         </main>
       </div>
       <nav className="bottom-nav">
@@ -519,6 +564,7 @@ function Workspace() {
               move("record");
             }}
             notify={setToast}
+            onManageExercises={() => setShowPlans(true)}
           />
         </Suspense>
       )}
@@ -584,10 +630,8 @@ function Dashboard({
               day: "numeric",
               weekday: "long",
             })}{" "}
-            · KEEP SHOWING UP
           </span>
-          <h1>今天，也为自己进步一点。</h1>
-          <p>看清目标，专注训练。每一次记录，都算数。</p>
+          <h1>训练总览</h1>
         </div>
         <button className="secondary compact" onClick={plans}>
           <Settings2 size={17} />
@@ -612,10 +656,7 @@ function Dashboard({
             <Badge green>下一次训练 · {next}</Badge>
             <h2>{plan?.name ?? "自选训练"}</h2>
             <p>
-              {enabled
-                ? "练一休一，按你的恢复状态安排。"
-                : "计划已暂停，仍可在记录页自由选择训练。"}
-              <br />
+              {!enabled && "计划已暂停。"}
               {plan?.items
                 .map(
                   (p) =>
@@ -632,16 +673,6 @@ function Dashboard({
               {busy ? <LoaderCircle size={18} /> : <Plus size={20} />}开始记录{" "}
               <ArrowRight size={18} />
             </button>
-          </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="orbit o1" />
-            <div className="orbit o2" />
-            <Dumbbell strokeWidth={1.3} />
-            <span>
-              BUILD YOUR
-              <br />
-              OWN MOMENTUM
-            </span>
           </div>
         </section>
         <section className="cycle-card">
@@ -669,12 +700,12 @@ function Dashboard({
                   ? "保持质量，稳步进步"
                   : "回顾表现，规划下一程"}
           </h3>
-          <p>{fmt(prefs.cycleStart)} 开始 · 不预设身体结果</p>
+          <p>{fmt(prefs.cycleStart)} 开始</p>
           <div className="cycle-goal">
             周期完成 <b>{cycleCount}</b> 次
             {prefs.cycleTargetSessions
               ? ` / 目标 ${prefs.cycleTargetSessions} 次 · ${Math.round((cycleCount / prefs.cycleTargetSessions) * 100)}%`
-              : " · 可在设置中制定次数目标"}
+              : ""}
           </div>
         </section>
       </div>
@@ -699,13 +730,11 @@ function Dashboard({
           <span>
             <Dumbbell size={17} /> 最近一次训练
           </span>
-          <strong className="text-stat">
-            {last ? names[last.kind] : "等待第一次"}
-          </strong>
+          <strong className="text-stat">{last ? names[last.kind] : "—"}</strong>
           <p>
             {last
-              ? `${fmt(last.date)} · ${last.duration ?? "未填"} 分钟`
-              : "实际成绩从这里开始积累"}
+              ? `${fmt(last.date)}${last.duration ? " · " + last.duration + " 分钟" : ""}`
+              : ""}
           </p>
         </div>
         <div className="stat-card">
@@ -719,12 +748,11 @@ function Dashboard({
             }
             <small>次训练</small>
           </strong>
-          <p>完成次数，不代表训练效果评分</p>
         </div>
       </div>
       <Section
         eyebrow="TRAIN WITH INTENTION"
-        title="下次训练，心中有数"
+        title="训练计划"
         action={
           <button className="text-button" onClick={() => move("trends")}>
             查看趋势 <ArrowRight size={15} />
@@ -755,17 +783,19 @@ function Dashboard({
                   <Badge>{e.muscle}</Badge>
                 </div>
                 <h3>{e.name}</h3>
-                <p className="equipment">{e.equipment || "器械标识待填写"}</p>
-                <div className="performance-row">
-                  <small>上次实际</small>
-                  <b>{r ? formatSets(r.sets) : "暂无实际成绩"}</b>
-                </div>
+                {e.equipment && <p className="equipment">{e.equipment}</p>}
+                {r && (
+                  <div className="performance-row">
+                    <small>上次</small>
+                    <b>{formatSets(r.sets)}</b>
+                  </div>
+                )}
                 <div className="performance-row target">
-                  <small>{g ? "已确认目标" : "计划参考 · 待确认"}</small>
+                  <small>{g ? "目标" : "计划"}</small>
                   <b>
                     {g
                       ? `${g.weight === null ? "重量待定" : g.weight + "kg"} · ${g.sets}组 × ${g.min}–${g.max}次`
-                      : `${p.sets}组 × ${p.min}–${p.max}次 · 重量待确认`}
+                      : `${p.sets}组 × ${p.min}–${p.max}次`}
                   </b>
                 </div>
               </article>
@@ -779,7 +809,7 @@ function Dashboard({
           <h3>训练数据，只留在你的设备</h3>
           <p>iPhone 与 Mac 不自动同步。每周导出一份备份，让记录更安心。</p>
         </div>
-        <button className="text-button" onClick={() => move("settings")}>
+        <button className="text-button" onClick={() => move("data")}>
           管理备份 <ArrowRight size={16} />
         </button>
       </div>
@@ -809,8 +839,7 @@ function RecordPage({
       <div className="page-heading">
         <div>
           <span className="eyebrow">LOG YOUR EFFORT</span>
-          <h1>只记录，真实的完成。</h1>
-          <p>上次成绩仅作参考，不会自动填成本次成绩。</p>
+          <h1>训练记录</h1>
         </div>
         <button className="secondary compact" onClick={plans}>
           <Settings2 size={16} />
@@ -1323,8 +1352,7 @@ function Trends({
       <div className="page-heading">
         <div>
           <span className="eyebrow">SMALL STEPS, REAL PROGRESS</span>
-          <h1>让进步，有据可循。</h1>
-          <p>比较相同动作、器械、动作方式与目标组数。</p>
+          <h1>进步趋势</h1>
         </div>
         <button className="secondary compact" onClick={() => setBodyForm(true)}>
           <Plus size={17} />
@@ -2167,8 +2195,7 @@ function AIPage({
       <div className="page-heading">
         <div>
           <span className="eyebrow">REFLECT. ADJUST. REPEAT.</span>
-          <h1>每周回顾，下一步更清楚。</h1>
-          <p>把真实记录整理成依据，再由你决定如何调整。</p>
+          <h1>AI 周报</h1>
         </div>
       </div>
       <section className="panel ai-hero">
@@ -2439,8 +2466,7 @@ function SettingsPage({
       <div className="page-heading">
         <div>
           <span className="eyebrow">MAKE IT YOURS</span>
-          <h1>你的空间，由你掌握。</h1>
-          <p>计划、备份和设备设置，都在这里。</p>
+          <h1>数据管理</h1>
         </div>
       </div>
       <div className="settings-shortcuts panel">
@@ -2541,6 +2567,20 @@ function SettingsPage({
             </div>
           </div>
           <CountList data={data} />
+          <button
+            className="secondary"
+            disabled={busy}
+            onClick={async () => {
+              try {
+                integrity(await snapshot(db));
+                notify("数据完整，关联已核对");
+              } catch (e) {
+                notify("数据完整性检查失败：" + errorText(e));
+              }
+            }}
+          >
+            检查数据完整性
+          </button>
           <div className="button-row">
             <button
               className="primary"
@@ -2784,6 +2824,7 @@ function SettingsPage({
           </section>
         </div>
       </Section>
+      <p className="version-info">Fitness OS · V1.2 · 数据版本 1</p>
     </>
   );
 }

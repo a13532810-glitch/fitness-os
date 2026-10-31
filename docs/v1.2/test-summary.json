@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-31",
+  "baseline": "4a10d42c4f19d5f952fab690cec043fc860c4a8e",
+  "branch": "codex/fitness-os-v1.2-minimal",
+  "unit": {
+    "passed": 24,
+    "failed": 0
+  },
+  "e2e": {
+    "passed": 60,
+    "failed": 0,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "widths": [
+      320,
+      375,
+      390,
+      430,
+      1440
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ]
+  },
+  "pagesSubpath": {
+    "enginesPassed": 2,
+    "path": "/fitness-os/"
+  },
+  "realIPhoneVerified": false,
+  "productionDeployed": false
+}

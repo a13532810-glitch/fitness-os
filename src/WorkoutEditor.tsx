@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Check,
-  CheckCircle2,
   ChevronDown,
   Copy,
   LoaderCircle,
   Plus,
   Settings2,
+  MoreHorizontal,
   ShieldCheck,
   Trash2,
   X,
 } from "lucide-react";
 import { FitnessDB, createSession, deleteSession, saveSession } from "./db";
+import { download, makeBackup } from "./backup";
 import { formatSets, records, totals } from "./analytics";
 import {
   type Dataset,
@@ -93,6 +94,7 @@ export default function WorkoutEditor({
   onClose,
   onComplete,
   notify,
+  onManageExercises,
 }: {
   initial: Workout;
   data: Dataset;
@@ -100,6 +102,7 @@ export default function WorkoutEditor({
   onClose: () => void;
   onComplete: (session: Session, sets: WorkoutSet[]) => void;
   notify: (text: string) => void;
+  onManageExercises: () => void;
 }) {
   const [w, setW] = useState(initial);
   const latest = useRef(initial);
@@ -111,7 +114,9 @@ export default function WorkoutEditor({
   const [error, setError] = useState("");
   const [pending, setPending] = useState(0);
   const [finishing, setFinishing] = useState(false);
-  const [savedAt, setSavedAt] = useState(initial.session.updatedAt);
+  const [menu, setMenu] = useState(false);
+  const [adding, setAdding] = useState(false);
+  const [detail, setDetail] = useState("");
   const [active, setActive] = useState(initial.session.items[0]?.id ?? "");
   const [extra, setExtra] = useState("");
   const dialog = useRef<HTMLDialogElement>(null);
@@ -160,7 +165,6 @@ export default function WorkoutEditor({
       .then(() => {
         failed.current = false;
         setError("");
-        setSavedAt(next.session.updatedAt);
       })
       .catch((e) => {
         failed.current = true;
@@ -265,16 +269,20 @@ export default function WorkoutEditor({
   async function remove() {
     if (
       finishLock.current ||
-      !confirm("删除这次训练及其所有实际组？建议先导出备份。")
+      !confirm("删除这次训练及其所有组？删除前将下载完整恢复备份，请妥善保存。")
     )
       return;
     finishLock.current = true;
     setFinishing(true);
     await queue.current;
     try {
+      download(
+        `Fitness-OS-删除前恢复-${Date.now()}.json`,
+        JSON.stringify(await makeBackup(db), null, 2),
+      );
       await deleteSession(db, latest.current.session.id);
       onClose();
-      notify("训练及关联组已删除");
+      notify("训练已删除，可在数据管理导入删除前备份恢复");
     } catch (e) {
       setError(errorText(e));
       finishLock.current = false;
@@ -303,6 +311,14 @@ export default function WorkoutEditor({
         </div>
         <button
           className="icon-button"
+          aria-label="训练更多操作"
+          aria-expanded={menu}
+          onClick={() => setMenu(!menu)}
+        >
+          <MoreHorizontal />
+        </button>
+        <button
+          className="icon-button"
           disabled={finishing}
           aria-label="关闭训练记录"
           onClick={() => void close()}
@@ -311,17 +327,81 @@ export default function WorkoutEditor({
         </button>
       </header>
       <div className="workout-content">
+        {menu && (
+          <section className="editor-menu" aria-label="训练操作">
+            <button
+              className="secondary"
+              disabled={finishing}
+              onClick={() => void close()}
+            >
+              {editing ? "保存并关闭" : "保存草稿并关闭"}
+            </button>
+            <button
+              className="secondary"
+              disabled={finishing}
+              onClick={async () => {
+                if (
+                  !confirm(
+                    "放弃本次打开后的修改？恢复打开时的记录，已有历史不会删除。",
+                  )
+                )
+                  return;
+                finishLock.current = true;
+                setFinishing(true);
+                await queue.current;
+                try {
+                  await saveSession(db, initial.session, initial.sets);
+                  onClose();
+                } catch (e) {
+                  setError(errorText(e));
+                  finishLock.current = false;
+                  setFinishing(false);
+                }
+              }}
+            >
+              放弃本次修改
+            </button>
+            <label>
+              训练时长（分钟，可选）
+              <input
+                type="number"
+                inputMode="numeric"
+                min="1"
+                max="1440"
+                value={w.session.duration ?? ""}
+                onChange={(e) =>
+                  sessionPatch({
+                    duration:
+                      e.target.value === "" ? null : Number(e.target.value),
+                  })
+                }
+              />
+            </label>
+            {editing && (
+              <button
+                className="secondary"
+                onClick={() => void finish("incomplete")}
+              >
+                标记未完成
+              </button>
+            )}
+            <button
+              className="text-button danger"
+              disabled={finishing}
+              onClick={() => void remove()}
+            >
+              删除训练
+            </button>
+          </section>
+        )}
+
         <div className="save-state" role="status">
           {pending ? (
             <LoaderCircle size={16} className="spin" />
           ) : (
             <ShieldCheck size={16} />
           )}
-          {pending
-            ? "正在保存到本地…"
-            : error
-              ? "输入需要检查"
-              : `${editing ? "修改已保存" : "草稿已自动保存"} · ${new Date(savedAt).toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" })}`}
+          {pending ? "正在保存到本地…" : error ? "输入需要检查" : "已保存"}
         </div>
         {(error || numericError) && (
           <div className="editor-error" role="alert">
@@ -388,7 +468,7 @@ export default function WorkoutEditor({
             </label>
           </div>
           <div className="workout-progress">
-            <span>本次实际成绩</span>
+            <span>训练动作</span>
             <b>{completedSets} 组已填写</b>
           </div>
           {w.session.items.map((i, index) => {
@@ -435,7 +515,8 @@ export default function WorkoutEditor({
                     <span>
                       <b>{i.name}</b>
                       <small>
-                        {totals(sets).sets}/{i.targetSets} 组已填写
+                        {i.targetSets}组 × {i.min}–{i.max}次 ·{" "}
+                        {totals(sets).sets}组已填
                       </small>
                     </span>
                     <ChevronDown size={18} />
@@ -466,33 +547,34 @@ export default function WorkoutEditor({
                     <Trash2 size={17} />
                   </button>
                 </div>
-                <div className="exercise-reference">
-                  <p>
-                    <span>上次</span>
-                    <b>{last ? formatSets(last.sets) : "首次记录"}</b>
-                  </p>
-                  <p>
-                    <span>目标</span>
-                    <b>
-                      {goal
-                        ? `${goal.weight === null ? "重量待定" : goal.weight + "kg"} · ${goal.sets}组 × ${goal.min}–${goal.max}次`
-                        : "尚无已确认目标"}
-                    </b>
-                  </p>
-                </div>
+                {(last || goal) && (
+                  <div className="exercise-reference">
+                    {last && (
+                      <p>
+                        <span>上次</span>
+                        <b>{formatSets(last.sets)}</b>
+                      </p>
+                    )}
+                    {goal && (
+                      <p>
+                        <span>目标</span>
+                        <b>
+                          {goal.weight === null ? "" : goal.weight + "kg · "}
+                          {goal.sets}组 × {goal.min}–{goal.max}次
+                        </b>
+                      </p>
+                    )}
+                  </div>
+                )}
                 <div
                   id={"item-" + i.id}
                   hidden={!expanded}
                   className="exercise-body"
                 >
-                  {(!i.equipment || !i.technique) && (
-                    <p className="comparison-hint">
-                      器械或动作方式未填写，历史比较可信度有限。
-                    </p>
-                  )}
                   <div className="set-head">
                     <span>组</span>
                     <span>重量 kg</span>
+                    <span aria-hidden="true" />
                     <span>次数</span>
                     <span />
                   </div>
@@ -506,6 +588,9 @@ export default function WorkoutEditor({
                         onChange={(value) => setPatch(s.id, { weight: value })}
                         onError={(bad) => numeric(s.id + ":weight", bad)}
                       />
+                      <span className="set-multiply" aria-hidden="true">
+                        ×
+                      </span>
                       <SetNumber
                         label={`${i.name} 第${n + 1}组次数`}
                         value={s.reps}
@@ -536,7 +621,7 @@ export default function WorkoutEditor({
                           });
                         }}
                       >
-                        <X size={16} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   ))}
@@ -587,186 +672,135 @@ export default function WorkoutEditor({
                       </span>
                     </button>
                   </div>
-                  <details className="equipment-settings">
-                    <summary>
-                      <Settings2 size={16} />
-                      器械与动作设置
-                    </summary>
-                    <p className="muted">
-                      完成训练后，下次自动带出这套设置。修改设置后只比较相同条件。
-                    </p>
-                    <label>
-                      器械标识
-                      <input
-                        maxLength={160}
-                        placeholder="例如：胸推01，可稍后填写"
-                        value={i.equipment}
-                        onChange={(e) =>
-                          itemPatch(i.id, { equipment: e.target.value })
-                        }
-                      />
-                    </label>
-                    <label>
-                      动作方式 / 座椅设置
-                      <input
-                        maxLength={500}
-                        placeholder="例如：座椅2，固定动作幅度"
-                        value={i.technique}
-                        onChange={(e) =>
-                          itemPatch(i.id, { technique: e.target.value })
-                        }
-                      />
-                    </label>
-                    <div className="quality-row">
+                  <button
+                    className="text-button exercise-detail-link"
+                    aria-expanded={detail === i.id}
+                    onClick={() => setDetail(detail === i.id ? "" : i.id)}
+                  >
+                    <Settings2 size={15} />
+                    动作详情
+                  </button>
+                  {detail === i.id && (
+                    <div className="equipment-settings">
+                      <h3>可选器械信息</h3>
                       <label>
+                        器械标识
                         <input
-                          type="checkbox"
-                          checked={i.quality}
+                          maxLength={160}
+                          placeholder="例如：胸推01，可稍后填写"
+                          value={i.equipment}
                           onChange={(e) =>
-                            itemPatch(i.id, { quality: e.target.checked })
+                            itemPatch(i.id, { equipment: e.target.value })
                           }
                         />
-                        动作质量稳定
                       </label>
                       <label>
+                        动作方式 / 座椅设置
                         <input
-                          type="checkbox"
-                          checked={i.reserve}
+                          maxLength={500}
+                          placeholder="例如：座椅2，固定动作幅度"
+                          value={i.technique}
                           onChange={(e) =>
-                            itemPatch(i.id, { reserve: e.target.checked })
+                            itemPatch(i.id, { technique: e.target.value })
                           }
                         />
-                        仍有适当余力
                       </label>
+                      <p className="muted">
+                        仅比较相同器械与动作方式；完成训练后记忆。
+                      </p>
                     </div>
-                    <small className="muted">
-                      计划快照：{i.targetSets}组 × {i.min}–{i.max}
-                      次；实际成绩独立保存。
-                    </small>
-                  </details>
+                  )}
                 </div>
               </section>
             );
           })}
-          <details className="workout-more">
-            <summary>更多信息</summary>
-            <div className="form-grid">
-              <label>
-                训练时长（分钟）
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min="1"
-                  max="1440"
-                  value={w.session.duration ?? ""}
-                  onChange={(e) =>
-                    sessionPatch({
-                      duration:
-                        e.target.value === "" ? null : Number(e.target.value),
-                    })
-                  }
-                />
-              </label>
-              <label>
-                主观疲劳
+          <button
+            className="secondary add-action-button"
+            disabled={w.session.items.length >= 30}
+            aria-expanded={adding}
+            onClick={() => setAdding(!adding)}
+          >
+            <Plus size={18} />
+            添加动作
+          </button>
+          {adding && (
+            <section className="action-picker" aria-label="添加动作">
+              <div className="add-exercise">
                 <select
-                  value={w.session.fatigue}
-                  onChange={(e) => sessionPatch({ fatigue: e.target.value })}
+                  aria-label="选择要添加的动作"
+                  value={extra}
+                  onChange={(e) => setExtra(e.target.value)}
                 >
-                  <option value="">待填写</option>
-                  {["轻松", "适中", "较累", "非常累"].map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
+                  <option value="">选择额外动作</option>
+                  {data.exercises
+                    .filter(
+                      (e) =>
+                        e.active &&
+                        !w.session.items.some((i) => i.exerciseId === e.id),
+                    )
+                    .map((e) => (
+                      <option key={e.id} value={e.id}>
+                        {e.name}
+                      </option>
+                    ))}
                 </select>
-              </label>
-            </div>
-            <label>
-              训练感受
-              <textarea
-                maxLength={20000}
-                value={w.session.notes}
-                onChange={(e) => sessionPatch({ notes: e.target.value })}
-                placeholder="恢复情况、动作感受…"
-              />
-            </label>
-            <div className="add-exercise">
-              <select
-                aria-label="选择要添加的动作"
-                value={extra}
-                onChange={(e) => setExtra(e.target.value)}
-              >
-                <option value="">选择额外动作</option>
-                {data.exercises
-                  .filter(
-                    (e) =>
-                      e.active &&
-                      !w.session.items.some((i) => i.exerciseId === e.id),
-                  )
-                  .map((e) => (
-                    <option key={e.id} value={e.id}>
-                      {e.name}
-                    </option>
-                  ))}
-              </select>
-              <button
-                className="secondary"
-                disabled={!extra || w.session.items.length >= 30}
-                onClick={() => {
-                  const created = createSession(
-                    {
-                      ...data,
-                      workoutPlans: [
-                        {
-                          ...data.workoutPlans[0],
-                          kind: w.session.kind,
-                          items: [
-                            { exerciseId: extra, sets: 3, min: 8, max: 12 },
-                          ],
-                        },
+                <button
+                  className="secondary"
+                  disabled={!extra || w.session.items.length >= 30}
+                  onClick={() => {
+                    const created = createSession(
+                      {
+                        ...data,
+                        workoutPlans: [
+                          {
+                            ...data.workoutPlans[0],
+                            kind: w.session.kind,
+                            items: [
+                              { exerciseId: extra, sets: 3, min: 8, max: 12 },
+                            ],
+                          },
+                        ],
+                      },
+                      w.session.kind,
+                    );
+                    const item = created.session.items[0];
+                    if (!item) return;
+                    const v = latest.current;
+                    change({
+                      ...v,
+                      session: {
+                        ...v.session,
+                        items: [...v.session.items, item],
+                      },
+                      sets: [
+                        ...v.sets,
+                        ...created.sets.map((s) => ({
+                          ...s,
+                          sessionId: v.session.id,
+                        })),
                       ],
-                    },
-                    w.session.kind,
-                  );
-                  const item = created.session.items[0];
-                  if (!item) return;
-                  const v = latest.current;
-                  change({
-                    ...v,
-                    session: {
-                      ...v.session,
-                      items: [...v.session.items, item],
-                    },
-                    sets: [
-                      ...v.sets,
-                      ...created.sets.map((s) => ({
-                        ...s,
-                        sessionId: v.session.id,
-                      })),
-                    ],
-                  });
-                  setExtra("");
-                  setActive(item.id);
+                    });
+                    setExtra("");
+                    setAdding(false);
+                    setActive(item.id);
+                  }}
+                >
+                  <Plus size={16} />
+                  添加动作
+                </button>
+              </div>
+              <button
+                className="text-button"
+                onClick={async () => {
+                  await close();
+                  if (!failed.current && !invalid.current.size)
+                    onManageExercises();
                 }}
               >
-                <Plus size={16} />
-                添加动作
+                管理动作库 / 新建动作
               </button>
-            </div>
-            <button
-              className="text-button"
-              disabled={finishing}
-              onClick={() => void finish("incomplete")}
-            >
-              记为未完成
-            </button>
-            <button
-              className="text-button danger delete-workout"
-              disabled={finishing}
-              onClick={() => void remove()}
-            >
-              删除训练
-            </button>
-          </details>
+            </section>
+          )}
         </fieldset>
         <footer className="editor-actions">
           <button
@@ -786,12 +820,8 @@ export default function WorkoutEditor({
             disabled={finishing}
             onClick={() => void close()}
           >
-            {editing ? "保存并关闭" : "保存并关闭"}
+            {editing ? "保存并关闭" : "保存草稿"}
           </button>
-          <p className="muted">
-            <CheckCircle2 size={14} />
-            空白组不计入成绩，关闭后可继续草稿。
-          </p>
         </footer>
       </div>
     </dialog>
