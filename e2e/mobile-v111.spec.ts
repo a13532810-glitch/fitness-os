@@ -1,3 +1,4 @@
+import { seedLegacyBody, readTestDatabase } from "./fixtures";
 import { test, expect } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 const root = "artifacts/v1.1.1/after";
@@ -43,40 +44,17 @@ for (const width of [320, 375, 390, 430])
       path: `${root}/${info.project.name}-weekly-empty-${width}.png`,
       fullPage: true,
     });
-    // Create a record via the public UI, then edit the same ID and verify persistence.
-    await page
-      .getByRole("button", { name: "记录身体指标", exact: true })
-      .click();
-    await page.getByRole("button", { name: "保存身体指标" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
-    await page.getByLabel("体重（kg）").fill("74.2");
-    await page.getByLabel("腰围（cm）").fill("85.5");
-    await page.getByLabel("测量条件或备注（选填）").fill("隔离自动测试");
-    await page.getByLabel("体重（kg）").focus();
-    const bounds = await page.getByRole("dialog").boundingBox();
-    expect(bounds!.x).toBeGreaterThan(0);
-    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
-    expect(
-      await page
-        .getByRole("dialog")
-        .evaluate((e) => e.scrollWidth <= e.clientWidth),
-    ).toBe(true);
-    await page.screenshot({
-      path: `${root}/${info.project.name}-body-${width}.png`,
-    });
-    await page.getByRole("button", { name: "保存身体指标" }).click();
-    await page.getByText("查看身体指标明细").click();
-    await page.getByRole("button", { name: /编辑身体指标/ }).click();
-    await expect(page.getByLabel("体重（kg）")).toHaveValue("74.2");
-    await page.getByLabel("体重（kg）").fill("74.3");
-    await page.getByRole("button", { name: "保存身体指标" }).click();
-    await expect(page.getByRole("dialog")).toHaveCount(0);
-    await page.reload();
-    await nav("趋势");
-    await page.getByText("查看身体指标明细").click();
+    await seedLegacyBody(page, 2);
+    const legacy = await readTestDatabase(page);
+    expect(legacy.bodyMetrics).toHaveLength(2);
     await expect(
-      page.locator(".history-line").filter({ hasText: "74.3kg" }),
-    ).toHaveCount(1);
+      page.getByRole("button", { name: "记录身体指标" }),
+    ).toHaveCount(0);
+    await expect(page.locator(".body-summary,.body-trends")).toHaveCount(0);
+    await page.reload();
+    expect((await readTestDatabase(page)).bodyMetrics).toEqual(
+      legacy.bodyMetrics,
+    );
     // Only this disposable test context receives synthetic dated records. Never production profiles.
     await page.evaluate(async () => {
       const db = await new Promise<IDBDatabase>((resolve, reject) => {

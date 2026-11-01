@@ -85,7 +85,14 @@ export interface Settings extends Base {
   restoreTested: boolean;
   lastBackup: string | null;
 }
+export interface InclineRecord extends Base {
+  date: string;
+  minutes: number;
+  incline: number;
+  speed: number;
+}
 export interface Dataset {
+  inclineRecords: InclineRecord[];
   exercises: Exercise[];
   workoutPlans: Plan[];
   workoutSessions: Session[];
@@ -96,6 +103,7 @@ export interface Dataset {
   settings: Settings[];
 }
 export const tables = [
+  'inclineRecords',
   'exercises',
   'workoutPlans',
   'workoutSessions',
@@ -134,6 +142,7 @@ export const validSet = (s: WorkoutSet) =>
   Number.isInteger(s.reps) &&
   s.reps > 0;
 export const emptyDataset = (): Dataset => ({
+  inclineRecords: [],
   exercises: [],
   workoutPlans: [],
   workoutSessions: [],

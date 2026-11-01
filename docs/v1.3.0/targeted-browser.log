@@ -1,0 +1,18 @@
+[WebServer] (node:91801) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite preview --host 127.0.0.1 --port 4181
+[WebServer] (node:91812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:91818) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-mobile] › e2e/incline-v130.spec.ts:2:1 › 爬坡默认、新增、防重复、同日多次、编辑、删除确认、离线及布局 (1.8s)
+  ✓  2 [chromium-mobile] › e2e/incline-v130.spec.ts:16:1 › 日常入口精简，力量仍能完成并导出 AI 包 (1.4s)
+(node:91848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [webkit-mobile] › e2e/incline-v130.spec.ts:2:1 › 爬坡默认、新增、防重复、同日多次、编辑、删除确认、离线及布局 (2.0s)
+  ✓  4 [webkit-mobile] › e2e/incline-v130.spec.ts:16:1 › 日常入口精简，力量仍能完成并导出 AI 包 (677ms)
+
+  4 passed (7.4s)

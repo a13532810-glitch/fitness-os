@@ -69,21 +69,23 @@ it("记忆最近完成的配置，忽略草稿；不填入实际重量次数，�
     d.workoutSets,
   );
 });
-it("保留 v1 数据库与 JSON v1 契约，旧备份恢复后能再次导出且旧代码可解析", async () => {
+it("JSON v1 旧备份恢复到 v2 后再次导出，保留旧记录", async () => {
   const w = createSession(await snapshot(db), "B");
   w.sets[0].weight = 18.25;
   w.sets[0].reps = 9;
   await saveSession(db, w.session, w.sets);
   const backup = await makeBackup(db);
   const legacy = JSON.parse(JSON.stringify(backup));
+  legacy.version = 1;
+  delete legacy.data.inclineRecords;
   // V1.0 allowed settings without the optional cycle target.
   delete legacy.data.settings[0].cycleTargetSessions;
   expect(parseBackup(JSON.stringify(legacy)).version).toBe(1);
-  expect(db.verno).toBe(1);
+  expect(db.verno).toBe(2);
   const preview = await previewRestore(db, JSON.stringify(legacy), "merge");
   await restore(db, preview, "", true);
   const restored = await makeBackup(db);
-  expect(restored.version).toBe(1);
+  expect(restored.version).toBe(2);
   expect(restored.data.workoutSessions).toEqual(backup.data.workoutSessions);
   expect(restored.data.workoutSets).toEqual(backup.data.workoutSets);
 });

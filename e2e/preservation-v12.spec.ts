@@ -55,7 +55,7 @@ test("隐藏的历史字段在重新编辑、导出和恢复后逐字段保留�
   const file = await event;
   const { readFile } = await import("node:fs/promises");
   const backup = JSON.parse(await readFile((await file.path())!, "utf8"));
-  expect(backup.version).toBe(1);
+  expect(backup.version).toBe(2);
   expect(backup.data.workoutSessions[0]).toMatchObject({
     duration: 47,
     fatigue: "较累",

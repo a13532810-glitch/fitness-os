@@ -26,6 +26,7 @@ const item = z
   .strict()
   .refine((x) => x.min <= x.max);
 const row = {
+  inclineRecords: z.object({ ...base, date, minutes: z.number().positive().max(1440), incline: z.number().min(0).max(100), speed: z.number().min(0).max(100) }).strict(),
   exercises: z
     .object({
       ...base,
@@ -117,12 +118,12 @@ const row = {
 const schema = z
   .object({
     format: z.literal('fitness-os-backup'),
-    version: z.literal(1),
+    version: z.union([z.literal(1), z.literal(2)]),
     mode: z.literal('real'),
     exportedAt: time,
     data: z
       .object(
-        Object.fromEntries(tables.map((t) => [t, z.array(row[t]).max(100000)])) as {
+        Object.fromEntries(tables.map((t) => [t, t === "inclineRecords" ? z.array(row[t]).max(100000).default([]) : z.array(row[t]).max(100000)])) as unknown as {
           [K in keyof typeof row]: z.ZodArray<(typeof row)[K]>;
         },
       )
@@ -131,7 +132,7 @@ const schema = z
   .strict();
 export interface Backup {
   format: 'fitness-os-backup';
-  version: 1;
+  version: 1 | 2;
   mode: 'real';
   exportedAt: string;
   data: Dataset;
@@ -189,6 +190,7 @@ export function parseBackup(text: string): Backup {
   } catch {
     throw Error('JSON 文件损坏或格式错误');
   }
+  if (raw && typeof raw === "object" && "version" in raw && raw.version === 2 && (!("data" in raw) || !raw.data || typeof raw.data !== "object" || !("inclineRecords" in raw.data))) throw Error("新版备份缺少爬坡数据，拒绝静默恢复");
   const p = schema.safeParse(raw);
   if (!p.success)
     throw Error(
@@ -206,7 +208,7 @@ export async function makeBackup(db: FitnessDB): Promise<Backup> {
   if (db.mode !== 'real') throw Error('演示数据库不能导出为正式备份');
   return {
     format: 'fitness-os-backup',
-    version: 1,
+    version: 2,
     mode: 'real',
     exportedAt: new Date().toISOString(),
     data: await snapshot(db),

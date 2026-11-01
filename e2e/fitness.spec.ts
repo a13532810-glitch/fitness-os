@@ -1,4 +1,4 @@
-import { seedHistory } from "./fixtures";
+import { seedHistory, seedLegacyBody } from "./fixtures";
 import { test, expect, type Page } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 async function begin(page: Page) {
@@ -25,9 +25,7 @@ async function oneExercise(page: Page) {
     await dialog
       .getByRole("button", { name: "移除动作 " + name, exact: true })
       .click();
-  await dialog.getByRole("button", { name: "动作详情", exact: true }).click();
-  await dialog.getByLabel("器械标识", { exact: true }).fill("胸推01");
-  await dialog.getByLabel("动作方式 / 座椅设置").fill("座椅2标准幅度");
+  await expect(dialog.getByLabel("器械标识", { exact: true })).toHaveCount(0);
   return dialog;
 }
 async function downloadJSON(page: Page, buttonName: string) {
@@ -76,12 +74,8 @@ test("逐组录入、增删组、草稿刷新、编辑与删除；目标确认�
   await expect(
     page.getByText("20kg × 11 / 25kg × 9 / 25kg × 8", { exact: false }).first(),
   ).toBeVisible();
-  await page
-    .getByRole("button", { name: "记录身体指标", exact: false })
-    .click();
-  await page.getByLabel("体重（kg）").fill("74.2");
-  await page.getByLabel("腰围（cm）").fill("85");
-  await page.getByRole("button", { name: "保存身体指标" }).click();
+  await seedLegacyBody(page, 1);
+  await expect(page.getByRole("button", {name:"记录身体指标"})).toHaveCount(0);
   await page.getByRole("button", { name: "制定下次目标" }).click();
   await page.getByRole("dialog").getByText("高级选项", {exact:true}).click();
   await page

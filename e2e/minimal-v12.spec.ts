@@ -104,7 +104,7 @@ test("V1.2 已填写组取消删除、草稿放弃修改、整次删除前恢复
   await page.getByRole("button", { name: "删除训练", exact: true }).click();
   const file = await download;
   const backup = JSON.parse(readFileSync((await file.path())!, "utf8"));
-  expect(backup.version).toBe(1);
+  expect(backup.version).toBe(2);
   expect(
     backup.data.workoutSets.find(
       (s: { weight: number | null }) => s.weight !== null,

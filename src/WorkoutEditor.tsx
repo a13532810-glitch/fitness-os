@@ -461,6 +461,7 @@ export default function WorkoutEditor({
                   )
                     return;
                   const replacement = createSession(data, kind);
+                  replacement.session.items = replacement.session.items.map(i => ({...i, equipment: "", technique: ""}));
                   invalid.current.clear();
                   setNumericError(false);
                   setError("");
@@ -700,44 +701,6 @@ export default function WorkoutEditor({
                       </span>
                     </button>
                   </div>
-                  <button
-                    className="text-button exercise-detail-link"
-                    aria-expanded={detail === i.id}
-                    onClick={() => setDetail(detail === i.id ? "" : i.id)}
-                  >
-                    <Settings2 size={15} />
-                    动作详情
-                  </button>
-                  {detail === i.id && (
-                    <div className="equipment-settings">
-                      <h3>可选器械信息</h3>
-                      <label>
-                        器械标识
-                        <input
-                          maxLength={160}
-                          placeholder="例如：胸推01，可稍后填写"
-                          value={i.equipment}
-                          onChange={(e) =>
-                            itemPatch(i.id, { equipment: e.target.value })
-                          }
-                        />
-                      </label>
-                      <label>
-                        动作方式 / 座椅设置
-                        <input
-                          maxLength={500}
-                          placeholder="例如：座椅2，固定动作幅度"
-                          value={i.technique}
-                          onChange={(e) =>
-                            itemPatch(i.id, { technique: e.target.value })
-                          }
-                        />
-                      </label>
-                      <p className="muted">
-                        仅比较相同器械与动作方式；完成训练后记忆。
-                      </p>
-                    </div>
-                  )}
                 </div>
               </section>
             );
@@ -793,6 +756,7 @@ export default function WorkoutEditor({
                     );
                     const item = created.session.items[0];
                     if (!item) return;
+                    item.equipment = ""; item.technique = "";
                     const v = latest.current;
                     change({
                       ...v,

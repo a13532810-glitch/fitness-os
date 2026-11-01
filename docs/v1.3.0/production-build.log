@@ -1,0 +1,20 @@
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 2138 modules transformed.
+rendering chunks...
+computing gzip size...
+dist-pages/manifest.webmanifest                          0.54 kB
+dist-pages/index.html                                    0.92 kB │ gzip:   0.50 kB
+dist-pages/assets/index-J9wgxdZq.css                    57.35 kB │ gzip:  12.14 kB
+dist-pages/assets/workbox-window.prod.es5-Bd17z0YL.js    5.65 kB │ gzip:   2.20 kB
+dist-pages/assets/WorkoutEditor-jTj_yy4L.js             13.93 kB │ gzip:   5.26 kB
+dist-pages/assets/index-BGx_LlwI.js                    497.74 kB │ gzip: 155.99 kB
+
+✓ built in 260ms
+
+PWA v2.0.0
+mode      generateSW
+precache  15 entries (601.20 KiB)
+files generated
+  dist-pages/sw.js
+  dist-pages/workbox-2fbc6a65.js
