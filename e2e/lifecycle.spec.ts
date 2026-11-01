@@ -36,6 +36,15 @@ test("真正关闭浏览器进程后，持久配置中的训练草稿仍在", as
     await page.getByLabel("坐姿推胸 第1组重量").fill("27.5");
     await page.getByLabel("坐姿推胸 第1组次数").fill("9");
     await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
+    await page
+      .locator(".bottom-nav")
+      .getByRole("button", { name: "训练", exact: true })
+      .click();
+    await page.getByRole("button", { name: "跑步机爬坡", exact: true }).click();
+    await page
+      .getByRole("button", { name: "保存爬坡记录", exact: true })
+      .click();
+    await expect(page.locator(".incline-history")).toHaveCount(1);
     await browser.close();
     browser = await engine.launchPersistentContext(directory, options);
     try {
@@ -46,6 +55,15 @@ test("真正关闭浏览器进程后，持久配置中的训练草稿仍在", as
         .click();
       await expect(page.getByLabel("坐姿推胸 第1组重量")).toHaveValue("27.5");
       await expect(page.getByLabel("坐姿推胸 第1组次数")).toHaveValue("9");
+      await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
+      await page
+        .locator(".bottom-nav")
+        .getByRole("button", { name: "训练", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "跑步机爬坡", exact: true })
+        .click();
+      await expect(page.locator(".incline-history")).toHaveCount(1);
     } finally {
       await browser.close();
     }

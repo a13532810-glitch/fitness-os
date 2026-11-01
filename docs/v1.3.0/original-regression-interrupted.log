@@ -1,0 +1,89 @@
+$ playwright test --reporter=list
+[WebServer] (node:91404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] $ vite preview --host 127.0.0.1 --port 4181
+[WebServer] (node:91416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 86 tests using 1 worker
+
+(node:91427) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   1 [chromium-mobile] › e2e/fitness.spec.ts:46:1 › 逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报 (1.0m)
+(node:91490) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   2 [chromium-mobile] › e2e/fitness.spec.ts:119:1 › JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离 (12.5s)
+
+
+  1) [chromium-mobile] › e2e/fitness.spec.ts:46:1 › 逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报 ───────────────
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog').getByRole('button', { name: '动作详情', exact: true })
+
+
+      26 |       .getByRole("button", { name: "移除动作 " + name, exact: true })
+      27 |       .click();
+    > 28 |   await dialog.getByRole("button", { name: "动作详情", exact: true }).click();
+         |                                                                   ^
+      29 |   await dialog.getByLabel("器械标识", { exact: true }).fill("胸推01");
+      30 |   await dialog.getByLabel("动作方式 / 座椅设置").fill("座椅2标准幅度");
+      31 |   return dialog;
+        at oneExercise (/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/fitness.spec.ts:28:67)
+        at /Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/fitness.spec.ts:52:13
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/fitness-逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报-chromium-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/fitness-逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报-chromium-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/fitness-逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报-chromium-mobile/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/fitness-逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报-chromium-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium-mobile] › e2e/fitness.spec.ts:119:1 › JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离 ─────────────────
+
+    Test was interrupted.
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for getByRole('dialog').getByRole('button', { name: '动作详情', exact: true })
+
+
+      26 |       .getByRole("button", { name: "移除动作 " + name, exact: true })
+      27 |       .click();
+    > 28 |   await dialog.getByRole("button", { name: "动作详情", exact: true }).click();
+         |                                                                   ^
+      29 |   await dialog.getByLabel("器械标识", { exact: true }).fill("胸推01");
+      30 |   await dialog.getByLabel("动作方式 / 座椅设置").fill("座椅2标准幅度");
+      31 |   return dialog;
+        at oneExercise (/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/fitness.spec.ts:28:67)
+        at /Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/fitness.spec.ts:123:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/fitness-JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离-chromium-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/fitness-JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离-chromium-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/fitness-JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离-chromium-mobile/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/fitness-JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离-chromium-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium-mobile] › e2e/fitness.spec.ts:46:1 › 逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报 ────────────────
+  1 interrupted
+    [chromium-mobile] › e2e/fitness.spec.ts:119:1 › JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离 ──────────────────
+  84 did not run
+[ELIFECYCLE] Command failed with exit code 130.

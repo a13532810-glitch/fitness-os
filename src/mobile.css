@@ -2159,3 +2159,11 @@ summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* V1.3 incline entry uses the shared compact form and touch targets. */
+.incline-log { margin-bottom: 18px; }
+.incline-log h2 { margin-top: 0; }
+.incline-log .form-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.incline-log input { min-width: 0; width: 100%; min-height: 44px; }
+.incline-history { padding: 12px 0; border-top: 1px solid var(--border); }
+.incline-history p { overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.incline-log button { min-height: 44px; }

@@ -1,6 +1,7 @@
 import Dexie, { type Table } from "dexie";
 import {
   type Mode,
+  type InclineRecord,
   type Dataset,
   type Exercise,
   type Plan,
@@ -19,6 +20,7 @@ import {
   validSet,
 } from "./model";
 export class FitnessDB extends Dexie {
+  inclineRecords!: Table<InclineRecord>;
   exercises!: Table<Exercise>;
   workoutPlans!: Table<Plan>;
   workoutSessions!: Table<Session>;
@@ -42,6 +44,7 @@ export class FitnessDB extends Dexie {
       weeklyReports: "id, week",
       settings: "id",
     });
+    this.version(2).stores({ inclineRecords: "id, date" });
   }
 }
 export async function snapshot(db: FitnessDB): Promise<Dataset> {
@@ -334,6 +337,7 @@ export async function seed(db: FitnessDB) {
 }
 function emptyData(): Dataset {
   return {
+    inclineRecords: [],
     exercises: [],
     workoutPlans: [],
     workoutSessions: [],

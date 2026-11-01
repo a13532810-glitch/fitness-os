@@ -78,7 +78,7 @@ for (const width of [320, 390, 430, 1440])
     await page.locator(".plan-item > summary").first().click();
     await expect(page.getByLabel("坐姿推胸目标组数")).toBeVisible();
     await page.screenshot({
-      path: `docs/v1.2.1/${info.project.name}-plan-${width}.png`,
+      path: `artifacts/v1.3.0/regression/${info.project.name}-plan-${width}.png`,
     });
     await page.getByRole("button", { name: "关闭弹窗" }).click();
     for (const name of ["总览", "训练", "趋势", "AI 周报"]) {
@@ -92,7 +92,7 @@ for (const width of [320, 390, 430, 1440])
         ),
       ).toBe(true);
       await page.screenshot({
-        path: `docs/v1.2.1/${info.project.name}-${name}-${width}.png`,
+        path: `artifacts/v1.3.0/regression/${info.project.name}-${name}-${width}.png`,
         fullPage: true,
       });
     }

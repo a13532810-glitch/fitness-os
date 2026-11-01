@@ -43,3 +43,57 @@ export async function clearTestHistory(page: Page) {
   await page.reload();
   await expect(page.locator(".page-heading")).toBeVisible();
 }
+
+export async function seedLegacyBody(page: Page, count = 2) {
+  await page.evaluate(async (count) => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const r = indexedDB.open("fitness-os-real");
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
+    });
+    await new Promise<void>((resolve, reject) => {
+      const tx = db.transaction("bodyMetrics", "readwrite");
+      for (let i = 0; i < count; i++) {
+        const now = new Date().toISOString();
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+        tx.objectStore("bodyMetrics").put({
+          id: "synthetic-body-" + i,
+          createdAt: now,
+          updatedAt: now,
+          date,
+          weight: i ? 74.3 : 74.1,
+          waist: i ? null : 85.5,
+          notes: "虚构旧版身体指标",
+        });
+      }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
+    db.close();
+  }, count);
+  await page.reload();
+}
+export async function readTestDatabase(page: Page) {
+  return page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const r = indexedDB.open("fitness-os-real");
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
+    });
+    const names = Array.from(db.objectStoreNames);
+    const tx = db.transaction(names, "readonly");
+    const rows = await Promise.all(
+      names.map(
+        (name) =>
+          new Promise<any>((resolve) => {
+            const r = tx.objectStore(name).getAll();
+            r.onsuccess = () => resolve([name, r.result]);
+          }),
+      ),
+    );
+    db.close();
+    return Object.fromEntries(rows);
+  });
+}

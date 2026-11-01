@@ -1,10 +1,18 @@
+import { seedLegacyBody } from "./fixtures";
 import { test, expect } from "@playwright/test";
 import { execFileSync } from "node:child_process";
-import { cpSync, mkdtempSync, rmSync, symlinkSync } from "node:fs";
+import {
+  cpSync,
+  mkdtempSync,
+  rmSync,
+  symlinkSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
-test("真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史与草稿逐字段保持", async ({
+test("真实线上 V1.1.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持", async ({
   page,
 }) => {
   test.setTimeout(120000);
@@ -123,6 +131,7 @@ test("真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史�
         db.close();
         return result;
       });
+    await seedLegacyBody(page, 2);
     const before = await read();
     rmSync(resolve("dist"), { recursive: true, force: true });
     cpSync(join(temp, "v11"), resolve("dist"), { recursive: true });
@@ -132,15 +141,60 @@ test("真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史�
     await page.getByRole("button", { name: "更新应用", exact: true }).click();
     await expect(page.locator('meta[name="fitness-build"]')).toHaveAttribute(
       "content",
-      "1.2.1",
+      "1.3.0",
     );
-    expect(await read()).toEqual(before);
+    expect(await read()).toEqual({
+      version: 20,
+      data: { ...before.data, inclineRecords: [] },
+    });
     await page
       .getByRole("button", { name: "还有一份训练草稿", exact: false })
       .click();
     await expect(page.getByLabel("高位下拉 第1组重量")).toHaveValue("27.5");
     await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
-    // Code rollback installs the old app shell without downgrading or deleting IndexedDB.
+    await page
+      .locator(".bottom-nav")
+      .getByRole("button", { name: "训练", exact: true })
+      .click();
+    await page.getByRole("button", { name: "跑步机爬坡", exact: true }).click();
+    await page
+      .getByRole("button", { name: "保存爬坡记录", exact: true })
+      .click();
+    await expect(page.locator(".incline-history")).toHaveCount(1);
+    await page.locator('.bottom-nav').getByRole('button',{name:'总览',exact:true}).click();
+    const upgraded = await read();
+    // Roll back the UI only; retain schema2 so old Dexie code does not VersionError.
+    const dbPath = join(temp, "src/db.ts");
+    const oldSource = readFileSync(dbPath, "utf8");
+    const at =
+      oldSource.indexOf("    });", oldSource.indexOf("this.version(1)")) + 7;
+    writeFileSync(
+      dbPath,
+      oldSource.slice(0, at) +
+        '\n    this.version(2).stores({inclineRecords:"id, date"});' +
+        oldSource.slice(at),
+    );
+    cpSync(resolve("src/model.ts"), join(temp, "src/model.ts"));
+    cpSync(resolve("src/backup.ts"), join(temp, "src/backup.ts"));
+    execFileSync(
+      process.execPath,
+      [
+        resolve("node_modules/vite/bin/vite.js"),
+        "build",
+        "--outDir",
+        join(temp, "v10"),
+      ],
+      {
+        cwd: temp,
+        env: {
+          ...process.env,
+          FITNESS_BASE_PATH: "/",
+          FITNESS_BUILD_LABEL: "1.1.1",
+        },
+        stdio: "pipe",
+      },
+    );
+
     rmSync(resolve("dist"), { recursive: true, force: true });
     cpSync(join(temp, "v10"), resolve("dist"), { recursive: true });
     await page.evaluate(async () => {
@@ -151,7 +205,7 @@ test("真实线上 V1.1.1 构建 → V1.2 SW更新 → 旧代码回滚：历史�
       "content",
       "1.1.1",
     );
-    expect(await read()).toEqual(before);
+    expect(await read()).toEqual(upgraded);
     await page
       .getByRole("button", { name: "还有一份训练草稿", exact: false })
       .click();

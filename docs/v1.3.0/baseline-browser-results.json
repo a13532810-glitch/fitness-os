@@ -1,0 +1,22 @@
+[
+  {
+    "name": "chromium",
+    "status": 200,
+    "version": "1.2.1",
+    "assets": [
+      "/fitness-os/assets/index-DGgCrmnb.js"
+    ],
+    "serviceWorkers": "blocked",
+    "freshContext": true
+  },
+  {
+    "name": "webkit",
+    "status": 200,
+    "version": "1.2.1",
+    "assets": [
+      "/fitness-os/assets/index-DGgCrmnb.js"
+    ],
+    "serviceWorkers": "blocked",
+    "freshContext": true
+  }
+]

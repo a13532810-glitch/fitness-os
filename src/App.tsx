@@ -1,3 +1,4 @@
+import { InclineLog, InclineSummary } from "./InclineLog";
 const WorkoutEditor = lazy(() => import("./WorkoutEditor"));
 import {
   Component,
@@ -224,6 +225,7 @@ export default function App() {
   );
 }
 function Workspace() {
+  const [recordType, setRecordType] = useState<"strength" | "incline">("strength");
   const db = useMemo(() => new FitnessDB("real"), []);
   const [ready, setReady] = useState(false);
   const [bootError, setBootError] = useState("");
@@ -297,6 +299,7 @@ function Workspace() {
     try {
       setSummary(null);
       const w = createSession(data, kind);
+      w.session.items = w.session.items.map(i => ({...i, equipment: "", technique: ""}));
       setEditor(w);
     } catch (e) {
       setToast("无法创建草稿：" + errorText(e));
@@ -499,7 +502,10 @@ function Workspace() {
               />
             </>
           )}
-          {page === "record" && (
+          {page === "record" && <div className="segmented" aria-label="训练类型入口"><button aria-pressed={recordType === "strength"} onClick={() => setRecordType("strength")}>力量训练</button><button aria-pressed={recordType === "incline"} onClick={() => setRecordType("incline")}>跑步机爬坡</button></div>}
+          {page === "record" && recordType === "incline" && <InclineLog data={data} db={db} />}
+          {page === "home" && <InclineSummary data={data} open={() => {setRecordType("incline");move("record");}} />}
+          {page === "record" && recordType === "strength" && (
             <RecordPage
               db={db}
               data={data}
@@ -1470,10 +1476,7 @@ function Trends({
           <span className="eyebrow">SMALL STEPS, REAL PROGRESS</span>
           <h1>进步趋势</h1>
         </div>
-        <button className="secondary compact" onClick={() => setBodyForm(true)}>
-          <Plus size={17} />
-          记录身体指标
-        </button>
+
       </div>
       <div className="segmented range-filter" aria-label="趋势时间范围">
         {(["4", "12", "all"] as const).map((r) => (
@@ -1767,7 +1770,7 @@ function Trends({
                 }))}
             />
           ) : (
-            <Empty title="暂无足够数据">请先填写器械标识和动作方式。</Empty>
+            <Empty title="暂无足够数据">缺少可靠器械信息时仅查看历史成绩，不作同器械比较。</Empty>
           )}
           {latest && (
             <div className="reference">
@@ -1935,106 +1938,6 @@ function Trends({
           </Empty>
         )}
       </Section>
-      <Section title="身体变化" eyebrow="LOOK AT THE LONGER TERM">
-        <div className="body-summary">
-          {(["weight", "waist"] as const).map((key) => {
-            const unit = key === "weight" ? "kg" : "cm";
-            const label = key === "weight" ? "体重记录" : "腰围记录";
-            const latestMetric = [...data.bodyMetrics]
-              .filter((b) => b[key] !== null)
-              .sort(
-                (a, b) =>
-                  b.date.localeCompare(a.date) ||
-                  b.updatedAt.localeCompare(a.updatedAt),
-              )[0];
-            return (
-              <div className="panel" key={key}>
-                <small>{label}</small>
-                <strong>
-                  {latestMetric?.[key] ?? "—"} <small>{unit}</small>
-                </strong>
-                <small>
-                  {latestMetric ? fmt(latestMetric.date) : "尚未记录"}
-                </small>
-              </div>
-            );
-          })}
-        </div>
-        <div className="body-trends">
-          {(["weight", "waist"] as const).map((key) => {
-            const points = trendData.bodyMetrics
-              .filter((b) => b[key] !== null)
-              .map((b) => ({ date: b.date, value: b[key]! }));
-            return points.length >= 2 ? (
-              <div className="panel" key={key}>
-                <Sparkline
-                  label={key === "weight" ? "体重记录" : "腰围记录"}
-                  unit={key === "weight" ? "kg" : "cm"}
-                  points={points}
-                />
-              </div>
-            ) : (
-              <p className="muted" key={key}>
-                {key === "weight" ? "体重" : "腰围"} · {points.length}{" "}
-                个记录点，至少两个点显示趋势
-              </p>
-            );
-          })}
-        </div>
-        <details className="help">
-          <summary>测量说明</summary>
-          体重与腰围分别比较；单日波动不等于脂肪增减。
-        </details>
-        <details className="panel">
-          <summary>查看身体指标明细</summary>
-          {[...trendData.bodyMetrics]
-            .sort((a, b) => b.date.localeCompare(a.date))
-            .map((b) => (
-              <div className="history-line" key={b.id}>
-                <b>{fmt(b.date)}</b>
-                <span>
-                  {b.weight ?? "—"}kg · {b.waist ?? "—"}cm
-                  <small>{b.notes}</small>
-                </span>
-                <button
-                  className="text-button"
-                  aria-label={"编辑身体指标" + b.date}
-                  onClick={() => {
-                    setEditingBody(b);
-                    setBodyForm(true);
-                  }}
-                >
-                  编辑
-                </button>
-                <button
-                  className="icon-button danger"
-                  aria-label={"删除身体指标" + b.date}
-                  onClick={async () => {
-                    if (confirm("删除这条身体指标？"))
-                      try {
-                        await db.bodyMetrics.delete(b.id);
-                      } catch (e) {
-                        notify(errorText(e));
-                      }
-                  }}
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
-            ))}
-        </details>
-      </Section>
-      {bodyForm && (
-        <BodyForm
-          db={db}
-          metric={editingBody}
-          close={() => {
-            setBodyForm(false);
-            setEditingBody(undefined);
-          }}
-          notify={notify}
-        />
-      )}{" "}
       {goalForm && (
         <GoalForm
           goal={goalForm}
@@ -2597,7 +2500,8 @@ const tableLabels: Record<string, string> = {
   workoutPlans: "计划",
   workoutSessions: "训练",
   workoutSets: "实际组",
-  bodyMetrics: "身体指标",
+  inclineRecords: "爬坡记录",
+  bodyMetrics: "历史身体指标",
   trainingGoals: "目标",
   weeklyReports: "周报",
   settings: "设置",
@@ -2679,15 +2583,7 @@ function SettingsPage({
           计划与动作
           <ChevronRight size={18} />
         </button>
-        <button onClick={() => setBodyForm(true)}>
-          <Activity size={20} />
-          记录身体指标
-          <ChevronRight size={18} />
-        </button>
       </div>
-      {bodyForm && (
-        <BodyForm db={db} close={() => setBodyForm(false)} notify={notify} />
-      )}
       <div className="two-columns settings-preferences">
         <section className="panel">
           <h2>训练节奏</h2>
@@ -2810,7 +2706,7 @@ function SettingsPage({
             </button>
           </div>
           <p className="muted">
-            数据版本 1 · 最近生成备份：
+            备份版本 2 · 最近生成备份：
             {prefs.lastBackup
               ? new Date(prefs.lastBackup).toLocaleString("zh-CN")
               : "尚未生成"}
@@ -2890,7 +2786,7 @@ function SettingsPage({
               <p>
                 文件导出于{" "}
                 {new Date(preview.incoming.exportedAt).toLocaleString("zh-CN")}{" "}
-                · 版本1 · 正式数据
+                · 版本{preview.incoming.version} · 正式数据
               </p>
               <b>文件内记录</b>
               <CountList data={preview.incoming.data} />
@@ -3028,7 +2924,7 @@ function SettingsPage({
           </section>
         </div>
       </Section>
-      <p className="version-info">Fitness OS · V1.2.1 · 数据版本 1</p>
+      <p className="version-info">Fitness OS · V1.3.0 · 数据版本 2</p>
     </>
   );
 }

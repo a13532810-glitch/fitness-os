@@ -143,7 +143,7 @@ describe('备份安全边界', () => {
     const before = await snapshot(db);
     expect(() => parseBackup('{')).toThrow('损坏');
     for (const mutate of [
-      (x: any) => (x.version = 2),
+      (x: any) => (x.version = 99),
       (x: any) => (x.data.workoutSets[0].itemId = '不存在'),
       (x: any) => x.data.exercises.push(x.data.exercises[0]),
       (x: any) => (x.data.workoutSessions[0].date = '2026-02-30'),

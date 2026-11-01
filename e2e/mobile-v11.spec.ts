@@ -1,4 +1,4 @@
-import { seedHistory, clearTestHistory } from "./fixtures";
+import { seedHistory, clearTestHistory, readTestDatabase } from "./fixtures";
 import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 test.use({ deviceScaleFactor: 1 });
@@ -91,20 +91,26 @@ for (const width of [320, 375, 390, 430, 1440]) {
       fullPage: true,
     });
     await nav(page, "总览");
-    await page.getByRole("button", { name: "开始记录", exact: false }).click();
-    await page
-      .getByRole("button", { name: "动作详情", exact: true })
-      .first()
-      .click();
-    await page
-      .getByRole("dialog")
-      .getByLabel("器械标识", { exact: true })
-      .first()
+    await page.getByRole("button", { name: "调整计划", exact: true }).click();
+    const first = page.locator(".exercise-details").first();
+    await first.locator("summary").click();
+    await first
+      .getByLabel("动作名称", { exact: true })
       .fill(
-        "这是用于测试长名称的器械标识 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890".repeat(
+        "用于隔离测试的超长动作名称 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 ".repeat(
           2,
         ),
       );
+    await page.getByRole("button", { name: "保存计划与动作" }).click();
+    await page.getByRole("button", { name: "开始记录", exact: false }).click();
+    await expect(
+      page.getByRole("button", { name: "动作详情", exact: true }),
+    ).toHaveCount(0);
+    await page
+      .getByRole("dialog")
+      .getByLabel(/第1组重量/)
+      .first()
+      .fill("22.25");
     await page.evaluate(
       () => (document.documentElement.style.fontSize = "150%"),
     );
@@ -137,7 +143,7 @@ for (const width of [320, 375, 390, 430, 1440]) {
     expect(errors).toEqual([]);
   });
 }
-test("极简录入：小数、空值、主动复制、折叠、器械记忆、重复完成防护", async ({
+test("极简录入：小数、空值、主动复制、折叠、器械缺失不伪造比较、重复完成防护", async ({
   page,
 }, info) => {
   await page.goto("/");
@@ -173,16 +179,9 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
   await expect(page.getByLabel("坐姿推胸 第4组重量")).toHaveValue("25");
   await expect(page.getByLabel("坐姿推胸 第4组次数")).toHaveValue("");
   await page.getByLabel("坐姿推胸 第4组次数").fill("7");
-  await page
-    .getByRole("button", { name: "动作详情", exact: true })
-    .first()
-    .click();
-  await page
-    .getByRole("dialog")
-    .getByLabel("器械标识", { exact: true })
-    .first()
-    .fill("胸推V11");
-  await page.getByLabel("动作方式 / 座椅设置").first().fill("座椅2");
+  await expect(
+    page.getByRole("button", { name: "动作详情", exact: true }),
+  ).toHaveCount(0);
   await page.getByRole("button", { name: "关闭训练记录" }).click();
   await page.reload();
   await page
@@ -220,16 +219,12 @@ test("极简录入：小数、空值、主动复制、折叠、器械记忆、�
       .first(),
   ).toBeVisible();
   await expect(page.getByLabel("坐姿推胸 第1组重量")).toHaveValue("");
-  await page
-    .getByRole("button", { name: "动作详情", exact: true })
-    .first()
-    .click();
+  const database = await readTestDatabase(page);
+  expect(database.workoutSessions[0].items[0].equipment).toBe("");
+  expect(database.workoutSessions[0].items[0].technique).toBe("");
   await expect(
-    page.getByRole("dialog").getByLabel("器械标识", { exact: true }).first(),
-  ).toHaveValue("胸推V11");
-  await expect(page.getByLabel("动作方式 / 座椅设置").first()).toHaveValue(
-    "座椅2",
-  );
+    page.getByRole("button", { name: "动作详情", exact: true }),
+  ).toHaveCount(0);
   await page.getByRole("button", { name: /保存并关闭|保存草稿/ }).click();
   await nav(page, "趋势");
   for (const label of ["最近 4 周", "最近 12 周", "全部历史"]) {

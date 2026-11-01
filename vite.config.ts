@@ -12,7 +12,7 @@ export default defineConfig({
       transformIndexHtml(html) {
         return html.replace(
           "</head>",
-          `<meta name="fitness-build" content="${process.env.FITNESS_BUILD_LABEL ?? "1.2.1"}" /></head>`,
+          `<meta name="fitness-build" content="${process.env.FITNESS_BUILD_LABEL ?? "1.3.0"}" /></head>`,
         );
       },
     },
