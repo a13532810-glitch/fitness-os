@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "engine": "chromium",
+      "visibleVersion": "Fitness OS · V1.3.1 · 数据版本 2",
+      "width": 375,
+      "allControlsContained": true,
+      "minTouchHeight": 44,
+      "defaults": [
+        40,
+        10,
+        4.7
+      ]
+    },
+    {
+      "engine": "webkit",
+      "visibleVersion": "Fitness OS · V1.3.1 · 数据版本 2",
+      "width": 375,
+      "allControlsContained": true,
+      "minTouchHeight": 44,
+      "defaults": [
+        40,
+        10,
+        4.7
+      ]
+    }
+  ]
+}
