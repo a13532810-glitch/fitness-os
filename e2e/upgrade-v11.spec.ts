@@ -12,7 +12,7 @@ import {
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 
-test("真实 V1.0 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持", async ({
+test("真实 V1.0 构建 → V1.3.1 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持", async ({
   page,
 }) => {
   test.setTimeout(120000);
@@ -106,9 +106,11 @@ test("真实 V1.0 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚�
     await page.getByRole("button", { name: "更新应用", exact: true }).click();
     await expect(page.locator('meta[name="fitness-build"]')).toHaveAttribute(
       "content",
-      "1.3.0",
+      "1.3.1",
     );
-    expect(await read()).toEqual({
+    // The HTML build marker appears before Dexie finishes opening/upgrading.
+    // Wait for the same complete schema/data equality; do not accept partial data.
+    await expect.poll(read).toEqual({
       version: 20,
       data: { ...before.data, inclineRecords: [] },
     });

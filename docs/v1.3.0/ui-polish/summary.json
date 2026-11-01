@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-01",
+  "timezone": "Asia/Shanghai",
+  "status": "local_acceptance_passed_unreleased",
+  "unit": {
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "passed": 102,
+    "chromium": 51,
+    "webkit": 51,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "firstBrowserRun": {
+    "passed": 100,
+    "failed": 2,
+    "reason": "Upgrade snapshot read before asynchronous Dexie initialization; wait preserves full equality assertion"
+  },
+  "productionBuild": true,
+  "subpathBuild": true,
+  "subpathBrowsersPassed": 2,
+  "realIPhone": "pending_manual",
+  "committed": false,
+  "pushed": false,
+  "deployed": false
+}

@@ -217,6 +217,18 @@ describe('有依据的分析', () => {
     expect(comparable(a, b)).toBe(false);
     expect(comparable(a, { ...a, item: { ...a.item, technique: '' } })).toBe(false);
     expect(progress(d, 'exercise-1', '不存在', '座椅2').label).toBe('暂无足够数据');
+    // Daily entry no longer collects these fields: matching blanks are not proof of comparability.
+    const unknown = {
+      ...d,
+      workoutSessions: d.workoutSessions.map(s => ({
+        ...s, items: s.items.map(i => ({ ...i, equipment: '', technique: '' })),
+      })),
+    };
+    const unknownRecords = records(unknown, 'exercise-1', '', '');
+    expect(unknownRecords).toHaveLength(3);
+    expect(comparable(unknownRecords[0], unknownRecords[1])).toBe(false);
+    expect(progress(unknown, 'exercise-1', '', '')).toEqual({ label: '暂无足够数据', delta: null, warning: '' });
+    expect(suggestion(unknown, unknownRecords[0].item)).toContain('不预设重量');
   });
   it('只有全部组上限且质量余力明确才建议按实际档位加重', async () => {
     await logged(localDate(), '机器1', 12);

@@ -1,4 +1,4 @@
-# Fitness OS · V1.3.0
+# Fitness OS · V1.3.1
 
 简体中文、iPhone优先的个人力量训练与跑步机爬坡记录PWA。数据默认只保存在本机IndexedDB，无账号、云后端或付费API。正式地址：[GitHub Pages](https://a13532810-glitch.github.io/fitness-os/)。
 

@@ -2159,11 +2159,120 @@ summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-/* V1.3 incline entry uses the shared compact form and touch targets. */
-.incline-log { margin-bottom: 18px; }
-.incline-log h2 { margin-top: 0; }
-.incline-log .form-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-.incline-log input { min-width: 0; width: 100%; min-height: 44px; }
-.incline-history { padding: 12px 0; border-top: 1px solid var(--border); }
-.incline-history p { overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
-.incline-log button { min-height: 44px; }
+/* Keep the incline form compact without changing the shared training styles. */
+.incline-log {
+  margin-bottom: 18px;
+}
+.incline-log h2 {
+  margin: 0 0 4px;
+}
+.incline-log > .muted {
+  margin-bottom: 16px;
+}
+.incline-log .form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.incline-log .form-grid > label {
+  min-width: 0;
+  margin: 0;
+  gap: 6px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.incline-log input {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px;
+  border-radius: 12px;
+}
+/* Safari's native date field otherwise contributes an intrinsic minimum width. */
+.incline-log input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  padding-inline: 8px;
+}
+.incline-log input[type="date"]::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
+}
+.incline-log input[type="date"]::-webkit-datetime-edit {
+  min-width: 0;
+  padding: 0;
+}
+.incline-log > form > .button-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.incline-log > form > .button-row > button {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: normal;
+}
+.incline-log > form > .button-row > .secondary {
+  border: 1px solid var(--line);
+  background: var(--soft);
+  color: var(--ink);
+}
+.incline-log [role="status"] {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+.incline-log [role="status"]:empty {
+  margin: 0;
+}
+.incline-log > h3 {
+  margin: 20px 0 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.incline-log .incline-history {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.incline-log .incline-history p {
+  flex: 1 1 240px;
+  min-width: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.incline-log .incline-history .button-row {
+  gap: 8px;
+  margin-top: 0;
+}
+.incline-log .incline-history button {
+  min-width: 60px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.incline-log button {
+  min-height: 44px;
+}
+@media (max-width: 359px) {
+  .incline-log > form > .button-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

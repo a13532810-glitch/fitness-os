@@ -1,0 +1,3934 @@
+{
+  "config": {
+    "argv": [
+      "/Users/mac330/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/node_modules/.pnpm/@playwright+test@1.64.1/node_modules/@playwright/test/cli.js",
+      "test",
+      "--reporter=list,json"
+    ],
+    "configFile": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/playwright.config.ts",
+    "rootDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-mobile",
+        "name": "chromium-mobile",
+        "testDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-mobile",
+        "name": "webkit-mobile",
+        "testDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "chromium-mobile",
+        "testDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+        "snapshotDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4181",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",
+          "viewport": {
+            "width": 390,
+            "height": 664
+          },
+          "screen": {
+            "width": 390,
+            "height": 844
+          },
+          "deviceScaleFactor": 3,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "chromium",
+          "browserName": "chromium",
+          "launchOptions": {
+            "executablePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium-mobile"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "webkit-mobile",
+        "testDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+        "snapshotDir": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 60000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4181",
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",
+          "viewport": {
+            "width": 390,
+            "height": 664
+          },
+          "screen": {
+            "width": 390,
+            "height": 844
+          },
+          "deviceScaleFactor": 3,
+          "isMobile": true,
+          "hasTouch": true,
+          "defaultBrowserType": "webkit",
+          "browserName": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit-mobile"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "pnpm preview --port 4181",
+      "url": "http://127.0.0.1:4181",
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "backup-v130.spec.ts",
+      "file": "backup-v130.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "历史身体指标与爬坡：v1合并、v2完整覆盖、重复恢复及损坏保护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1341,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:01.198Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d68155c5e2da50dfc5c-956c2bae956867cb0109",
+          "file": "backup-v130.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "历史身体指标与爬坡：v1合并、v2完整覆盖、重复恢复及损坏保护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1613,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:37.898Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4d68155c5e2da50dfc5c-41a885d601c97ca3b798",
+          "file": "backup-v130.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "fitness.spec.ts",
+      "file": "fitness.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4138,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:02.914Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-5152a42e0d34a5601202",
+          "file": "fitness.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1450,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:07.060Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-4bce10e3157dfb1d6179",
+          "file": "fitness.spec.ts",
+          "line": 113,
+          "column": 1
+        },
+        {
+          "title": "移动布局与深色模式无横向溢出、数字键盘属性",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1620,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:08.519Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-110627c263a57897eb3c",
+          "file": "fitness.spec.ts",
+          "line": 160,
+          "column": 1
+        },
+        {
+          "title": "生产PWA manifest、离线冷开、离线创建编辑、联网保留和更新检查",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3742,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:10.149Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-bfc42012cfe7efa47932",
+          "file": "fitness.spec.ts",
+          "line": 189,
+          "column": 1
+        },
+        {
+          "title": "隔离合成记录的图表和桌面布局视觉检查",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2520,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:13.900Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-cba134a65dc771a565ca",
+          "file": "fitness.spec.ts",
+          "line": 231,
+          "column": 1
+        },
+        {
+          "title": "逐组录入、增删组、草稿刷新、编辑与删除；目标确认、身体指标、周报",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2942,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:39.767Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-000296a1f10f802f434d",
+          "file": "fitness.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "JSON下载、预览、合并幂等、覆盖确认、损坏拒绝和演示隔离",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1254,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:42.714Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-073970c5efdf8c18c699",
+          "file": "fitness.spec.ts",
+          "line": 113,
+          "column": 1
+        },
+        {
+          "title": "移动布局与深色模式无横向溢出、数字键盘属性",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1688,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:43.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-e074f5df59573356d718",
+          "file": "fitness.spec.ts",
+          "line": 160,
+          "column": 1
+        },
+        {
+          "title": "生产PWA manifest、离线冷开、离线创建编辑、联网保留和更新检查",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3478,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:45.664Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-dafadb7089a4d7a9bccf",
+          "file": "fitness.spec.ts",
+          "line": 189,
+          "column": 1
+        },
+        {
+          "title": "隔离合成记录的图表和桌面布局视觉检查",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1786,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:49.148Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "737c2790bb57244389d9-27f1810658d99450dfc8",
+          "file": "fitness.spec.ts",
+          "line": 231,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "forms-v121.spec.ts",
+      "file": "forms-v121.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "身体界面移除后旧零、一、两条记录逐字段保留，备份恢复不丢失",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1134,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:16.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3a8216d5402a82e4082-5bcae33ad1c4a63d2998",
+          "file": "forms-v121.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "目标默认精简；高级依据必填且保存后仍待确认",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 699,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:17.583Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3a8216d5402a82e4082-89e784dbef4b14eb5cd8",
+          "file": "forms-v121.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "周报编辑更新原记录，Markdown和复制提示词仍可用",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1047,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:18.290Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3a8216d5402a82e4082-e26b1acfcc9a734e98dc",
+          "file": "forms-v121.spec.ts",
+          "line": 66,
+          "column": 1
+        },
+        {
+          "title": "身体界面移除后旧零、一、两条记录逐字段保留，备份恢复不丢失",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1082,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:50.943Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3a8216d5402a82e4082-acef3cdd325f5623b962",
+          "file": "forms-v121.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "目标默认精简；高级依据必填且保存后仍待确认",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 610,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:52.029Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3a8216d5402a82e4082-718b9c8ab285d98c39ee",
+          "file": "forms-v121.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "周报编辑更新原记录，Markdown和复制提示词仍可用",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 793,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:52.644Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3a8216d5402a82e4082-ff4e65c3cda745bc21ad",
+          "file": "forms-v121.spec.ts",
+          "line": 66,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "incline-v130.spec.ts",
+      "file": "incline-v130.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "爬坡默认、新增、防重复、同日多次、编辑、删除确认、离线及布局",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1924,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:19.359Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-fe48d18e7a5f38fe7fbd",
+          "file": "incline-v130.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "日常入口精简，力量仍能完成并导出 AI 包",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1430,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:21.292Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-8982b065e7dd497254c8",
+          "file": "incline-v130.spec.ts",
+          "line": 79,
+          "column": 1
+        },
+        {
+          "title": "补录、非法输入、历史持久化、失败重试及AI内容",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 974,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:22.730Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-d0d481bc1876bff5f6b4",
+          "file": "incline-v130.spec.ts",
+          "line": 113,
+          "column": 1
+        },
+        {
+          "title": "长历史按日期倒序分页，同日多次不合并，编辑日期后重排",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 714,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:23.713Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-6b9146e8bff28afc77da",
+          "file": "incline-v130.spec.ts",
+          "line": 187,
+          "column": 1
+        },
+        {
+          "title": "爬坡默认、新增、防重复、同日多次、编辑、删除确认、离线及布局",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1726,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:53.448Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-801016261e0fbd1cdde0",
+          "file": "incline-v130.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "日常入口精简，力量仍能完成并导出 AI 包",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 683,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:55.179Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-542b5f84b6d91e7243c9",
+          "file": "incline-v130.spec.ts",
+          "line": 79,
+          "column": 1
+        },
+        {
+          "title": "补录、非法输入、历史持久化、失败重试及AI内容",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1033,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:55.867Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-9b7f7fbb4b0764f6ce5c",
+          "file": "incline-v130.spec.ts",
+          "line": 113,
+          "column": 1
+        },
+        {
+          "title": "长历史按日期倒序分页，同日多次不合并，编辑日期后重排",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 783,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:56.904Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b05bce1387f093731cb2-0c032c8802f4a86c6fad",
+          "file": "incline-v130.spec.ts",
+          "line": 187,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "lifecycle.spec.ts",
+      "file": "lifecycle.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "真正关闭浏览器进程后，持久配置中的训练草稿仍在",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3172,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:24.438Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f1785dee40219527314-ae7f6d7e3ed701d20922",
+          "file": "lifecycle.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "实际新版本Service Worker激活后 IndexedDB 草稿保持完整",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:27.617Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f1785dee40219527314-2c859e320e2dea3cbe0e",
+          "file": "lifecycle.spec.ts",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "4动作12组完整录入流程计时（自动操作，不代表真人速度）",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2200,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:32.574Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f1785dee40219527314-02d69dbc38cac10bc487",
+          "file": "lifecycle.spec.ts",
+          "line": 130,
+          "column": 1
+        },
+        {
+          "title": "真正关闭浏览器进程后，持久配置中的训练草稿仍在",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3013,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:57.695Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f1785dee40219527314-1ac6746ade710a73769a",
+          "file": "lifecycle.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "实际新版本Service Worker激活后 IndexedDB 草稿保持完整",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3535,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:00.712Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f1785dee40219527314-c175099bf626ff2777cc",
+          "file": "lifecycle.spec.ts",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "4动作12组完整录入流程计时（自动操作，不代表真人速度）",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2282,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:04.252Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1f1785dee40219527314-608da327061f51482dd5",
+          "file": "lifecycle.spec.ts",
+          "line": 130,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "minimal-v12.spec.ts",
+      "file": "minimal-v12.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 320px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2972,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:34.789Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-126bd85d85a60b015c56",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 375px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3039,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:37.768Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-298677351a2804de4074",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 390px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3018,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:40.816Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-d883dec03819c982f414",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 430px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3019,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:43.842Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-00673c242b3cdd423150",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 已填写组取消删除、草稿放弃修改、整次删除前恢复备份",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1789,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:46.870Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-1340991bd7c6f6038eec",
+          "file": "minimal-v12.spec.ts",
+          "line": 83,
+          "column": 1
+        },
+        {
+          "title": "V1.2 浏览器前后退与重新启动导航",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 536,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:48.668Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-9b65eba5f26db0809d61",
+          "file": "minimal-v12.spec.ts",
+          "line": 132,
+          "column": 1
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 320px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2935,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:06.543Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-9e2790ce6c1db8214693",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 375px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1819,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:09.483Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-e9d2e362a22d30c1f57a",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 390px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3115,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:11.306Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-46d8c69be55953350585",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 四导航、输入乘号与动作库 430px 深浅色",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2314,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:14.425Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-b78801469a1df8f8c078",
+          "file": "minimal-v12.spec.ts",
+          "line": 15,
+          "column": 3
+        },
+        {
+          "title": "V1.2 已填写组取消删除、草稿放弃修改、整次删除前恢复备份",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1159,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:16.743Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-c175477fc010f6b4ca67",
+          "file": "minimal-v12.spec.ts",
+          "line": 83,
+          "column": 1
+        },
+        {
+          "title": "V1.2 浏览器前后退与重新启动导航",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 526,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:17.913Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5828a77f0897487e315d-44ff8681921d86d2d64e",
+          "file": "minimal-v12.spec.ts",
+          "line": 132,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "mobile-v11.spec.ts",
+      "file": "mobile-v11.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "五页与记录视觉矩阵 320px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5138,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:49.219Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-d86c1de6d04cea9d2e22",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 375px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5116,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:54.365Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-3dab0dcce7c408eaa688",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 390px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5109,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:36:59.488Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-2beeed78858b63746a99",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 430px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5109,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:04.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-a41e6d4fd52ef94059fd",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 1440px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5089,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:09.724Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-4aaf7dc63cda08ade8fc",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "极简录入：小数、空值、主动复制、折叠、器械缺失不伪造比较、重复完成防护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2826,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:14.819Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-20a2a801a7c82ceca959",
+          "file": "mobile-v11.spec.ts",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "1000次虚构历史的页面响应与历史分页",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2147,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:17.655Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "synthetic-history-performance",
+                      "contentType": "application/json",
+                      "body": "eyJyZWNvcmRzIjoxMDAwLCJzZXRzIjoxMjAwMCwidGltaW5ncyI6eyJjb2xkTG9hZCI6MTMwLCLorq3nu4MiOjE0LCLotovlir8iOjYwLCLmgLvop4giOjUzLCJBSSDlkajmiqUiOjIyNX0sImxpbWl0YXRpb24iOiLmtYvor5XmnLroh6rliqjljJbmk43kvZzvvIzkuI3ku6PooajnnJ/lrp5pUGhvbmXmgKfog73jgIIifQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-733c2ff243b3eead3680",
+          "file": "mobile-v11.spec.ts",
+          "line": 237,
+          "column": 1
+        },
+        {
+          "title": "五页与记录视觉矩阵 320px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4337,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:18.449Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-58981cf49c53a6323535",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 375px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4343,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:22.793Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-e37d3be1930ff232ca45",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 390px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4345,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:27.140Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-6c41491f7c55888be924",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 430px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4299,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:31.490Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-f5d3bfb907d9809b14cb",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "五页与记录视觉矩阵 1440px，深浅色、空态、大字号及长文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4389,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:35.794Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-0d06d16fece75e8b38fe",
+          "file": "mobile-v11.spec.ts",
+          "line": 26,
+          "column": 3
+        },
+        {
+          "title": "极简录入：小数、空值、主动复制、折叠、器械缺失不伪造比较、重复完成防护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1619,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:40.187Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-e2e4d905678dcd81daf8",
+          "file": "mobile-v11.spec.ts",
+          "line": 146,
+          "column": 1
+        },
+        {
+          "title": "1000次虚构历史的页面响应与历史分页",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1717,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:41.810Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "synthetic-history-performance",
+                      "contentType": "application/json",
+                      "body": "eyJyZWNvcmRzIjoxMDAwLCJzZXRzIjoxMjAwMCwidGltaW5ncyI6eyJjb2xkTG9hZCI6OTYsIuiuree7gyI6NDQsIui2i+WKvyI6NjMsIuaAu+iniCI6NTAsIkFJIOWRqOaKpSI6MjA2fSwibGltaXRhdGlvbiI6Iua1i+ivleacuuiHquWKqOWMluaTjeS9nO+8jOS4jeS7o+ihqOecn+WunmlQaG9uZeaAp+iDveOAgiJ9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "deae7635c6d603f54c67-679a7cfa3d551085ebe6",
+          "file": "mobile-v11.spec.ts",
+          "line": 237,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "mobile-v111.spec.ts",
+      "file": "mobile-v111.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "单空间、每周图表与身体指标 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1436,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:19.818Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-fe35fa040bfcf6bee9a4",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "单空间、每周图表与身体指标 375px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1478,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:21.260Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-9407149750c475be3a16",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "单空间、每周图表与身体指标 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1449,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:22.746Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-1dc4a92217eab41554b6",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "单空间、每周图表与身体指标 430px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1496,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:24.205Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-a574708faae23e5fc049",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "旧演示偏好与独立演示库不影响个人训练库，未知来源记录原样保留",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 410,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:25.708Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-c193024e638bad085b93",
+          "file": "mobile-v111.spec.ts",
+          "line": 130,
+          "column": 1
+        },
+        {
+          "title": "单空间、每周图表与身体指标 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1437,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:43.536Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-a95a87eee8285c47306a",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "单空间、每周图表与身体指标 375px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1339,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:44.978Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-2be5c01e45bc116aec13",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "单空间、每周图表与身体指标 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1396,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:46.321Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-99d6b7781d903af1f3d2",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "单空间、每周图表与身体指标 430px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1431,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:47.723Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-f324c2b69453b400bb7e",
+          "file": "mobile-v111.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "旧演示偏好与独立演示库不影响个人训练库，未知来源记录原样保留",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 440,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:49.160Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82dff52a3eac95478eed-92395a0835ad743c23f3",
+          "file": "mobile-v111.spec.ts",
+          "line": 130,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "premium-v121.spec.ts",
+      "file": "premium-v121.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "浏览十次、类型切换、刷新与后台恢复不持久化空白训练",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2092,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:26.132Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-de8948c261b4f6802c0d",
+          "file": "premium-v121.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "有效输入自动保存、刷新恢复原草稿与同日多次完成",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2356,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:28.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-ad62e712f8ea82ff9645",
+          "file": "premium-v121.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "紧凑计划与全站无溢出 320",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1052,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:30.596Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-55301a73f6d9a23f31ee",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "紧凑计划与全站无溢出 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1074,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:31.657Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-5ee53257e501ee0fe3ec",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "紧凑计划与全站无溢出 430",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1125,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:32.738Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-775e497c4ef485c76bea",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "紧凑计划与全站无溢出 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1529,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:33.879Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-0af0702deab01d661ea4",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "空白清理预览、取消确认、下载备份与有效草稿保护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2450,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:35.416Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-980f363960f8fb17423e",
+          "file": "premium-v121.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "新训练自动保存后放弃本次修改，不恢复出初始空白草稿",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1283,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:37.876Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-eb63826537baf25bcc3c",
+          "file": "premium-v121.spec.ts",
+          "line": 150,
+          "column": 1
+        },
+        {
+          "title": "历史优先显示完成训练，并保留未完成训练",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1354,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:39.167Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-35078e0f690a0e757d9e",
+          "file": "premium-v121.spec.ts",
+          "line": 162,
+          "column": 1
+        },
+        {
+          "title": "浏览十次、类型切换、刷新与后台恢复不持久化空白训练",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1465,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:49.610Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-4546d700a7912fe32c68",
+          "file": "premium-v121.spec.ts",
+          "line": 21,
+          "column": 1
+        },
+        {
+          "title": "有效输入自动保存、刷新恢复原草稿与同日多次完成",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1222,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:51.080Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-bda05f4c0912b75959b8",
+          "file": "premium-v121.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "紧凑计划与全站无溢出 320",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1020,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:52.310Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-a0623dd0324969ffe974",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "紧凑计划与全站无溢出 390",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1047,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:53.335Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-4ceeea3cbacd892dd5f2",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "紧凑计划与全站无溢出 430",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:54.387Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-1b37989a81ee1174038f",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "紧凑计划与全站无溢出 1440",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1633,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:55.511Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-5cf1b7c23714dfd6e2fc",
+          "file": "premium-v121.spec.ts",
+          "line": 73,
+          "column": 3
+        },
+        {
+          "title": "空白清理预览、取消确认、下载备份与有效草稿保护",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1747,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:57.151Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-5570a4fb9b8112b60446",
+          "file": "premium-v121.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "新训练自动保存后放弃本次修改，不恢复出初始空白草稿",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 575,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:58.903Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-9b94b1fa0f54dc6e6818",
+          "file": "premium-v121.spec.ts",
+          "line": 150,
+          "column": 1
+        },
+        {
+          "title": "历史优先显示完成训练，并保留未完成训练",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 589,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:39:59.483Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b1fa9622d9e47eb60f03-25d56dff2fffd971606c",
+          "file": "premium-v121.spec.ts",
+          "line": 162,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "preservation-v12.spec.ts",
+      "file": "preservation-v12.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "隐藏的历史字段在重新编辑、导出和恢复后逐字段保留；完整性入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2680,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:40.535Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c55f6cf645edffe8d122-8b42d278ddaa08167ebe",
+          "file": "preservation-v12.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "隐藏的历史字段在重新编辑、导出和恢复后逐字段保留；完整性入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1997,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:00.080Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c55f6cf645edffe8d122-baff2357fe66053de951",
+          "file": "preservation-v12.spec.ts",
+          "line": 2,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "ui-polish-v130.spec.ts",
+      "file": "ui-polish-v130.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "爬坡两列字段、日期边界、44px触控及空/有记录布局矩阵",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1422,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:43.228Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "17f15250b27192f67990-3101990d59e8d03b9ebd",
+          "file": "ui-polish-v130.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "日常力量新增/历史编辑无器械控件，旧配置保留，新记录不冒用旧配置",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3388,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:44.655Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "17f15250b27192f67990-3f7b84bd9698afebfae3",
+          "file": "ui-polish-v130.spec.ts",
+          "line": 75,
+          "column": 1
+        },
+        {
+          "title": "爬坡两列字段、日期边界、44px触控及空/有记录布局矩阵",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1156,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:02.086Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "17f15250b27192f67990-27c36c719473260a1656",
+          "file": "ui-polish-v130.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "日常力量新增/历史编辑无器械控件，旧配置保留，新记录不冒用旧配置",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2332,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:03.248Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "17f15250b27192f67990-ae79851a50641c48cc5c",
+          "file": "ui-polish-v130.spec.ts",
+          "line": 75,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "upgrade-v11.spec.ts",
+      "file": "upgrade-v11.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "真实 V1.0 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7230,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:48.058Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "470ffd360e30f6af31c6-48ab0cfae7c86e0dbadc",
+          "file": "upgrade-v11.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "真实 V1.0 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2811,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -120,11 +120,10 @@\u001b[39m\n\u001b[2m          \"name\": \"腿弯举\",\u001b[22m\n\u001b[2m          \"technique\": \"\",\u001b[22m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:07.303Z\",\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[32m-     \"inclineRecords\": Array [],\u001b[39m\n\u001b[2m      \"settings\": Array [\u001b[22m\n\u001b[2m        Object {\u001b[22m\n\u001b[2m          \"createdAt\": \"2026-11-01T08:40:07.304Z\",\u001b[22m\n\u001b[2m          \"cycleStart\": \"2026-11-01\",\u001b[22m\n\u001b[2m          \"cycleTargetSessions\": null,\u001b[22m\n\u001b[33m@@ -439,7 +438,7 @@\u001b[39m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:07.795Z\",\u001b[22m\n\u001b[2m          \"weight\": null,\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"version\": 20,\u001b[39m\n\u001b[31m+   \"version\": 10,\u001b[39m\n\u001b[2m  }\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -120,11 +120,10 @@\u001b[39m\n\u001b[2m          \"name\": \"腿弯举\",\u001b[22m\n\u001b[2m          \"technique\": \"\",\u001b[22m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:07.303Z\",\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[32m-     \"inclineRecords\": Array [],\u001b[39m\n\u001b[2m      \"settings\": Array [\u001b[22m\n\u001b[2m        Object {\u001b[22m\n\u001b[2m          \"createdAt\": \"2026-11-01T08:40:07.304Z\",\u001b[22m\n\u001b[2m          \"cycleStart\": \"2026-11-01\",\u001b[22m\n\u001b[2m          \"cycleTargetSessions\": null,\u001b[22m\n\u001b[33m@@ -439,7 +438,7 @@\u001b[39m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:07.795Z\",\u001b[22m\n\u001b[2m          \"weight\": null,\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"version\": 20,\u001b[39m\n\u001b[31m+   \"version\": 10,\u001b[39m\n\u001b[2m  }\u001b[22m\n    at /Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v11.spec.ts:111:26",
+                    "location": {
+                      "file": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v11.spec.ts",
+                      "column": 26,
+                      "line": 111
+                    },
+                    "snippet": "  109 |       \"1.3.0\",\n  110 |     );\n> 111 |     expect(await read()).toEqual({\n      |                          ^\n  112 |       version: 20,\n  113 |       data: { ...before.data, inclineRecords: [] },\n  114 |     });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v11.spec.ts",
+                        "column": 26,
+                        "line": 111
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -120,11 +120,10 @@\u001b[39m\n\u001b[2m          \"name\": \"腿弯举\",\u001b[22m\n\u001b[2m          \"technique\": \"\",\u001b[22m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:07.303Z\",\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[32m-     \"inclineRecords\": Array [],\u001b[39m\n\u001b[2m      \"settings\": Array [\u001b[22m\n\u001b[2m        Object {\u001b[22m\n\u001b[2m          \"createdAt\": \"2026-11-01T08:40:07.304Z\",\u001b[22m\n\u001b[2m          \"cycleStart\": \"2026-11-01\",\u001b[22m\n\u001b[2m          \"cycleTargetSessions\": null,\u001b[22m\n\u001b[33m@@ -439,7 +438,7 @@\u001b[39m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:07.795Z\",\u001b[22m\n\u001b[2m          \"weight\": null,\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"version\": 20,\u001b[39m\n\u001b[31m+   \"version\": 10,\u001b[39m\n\u001b[2m  }\u001b[22m\n\n  109 |       \"1.3.0\",\n  110 |     );\n> 111 |     expect(await read()).toEqual({\n      |                          ^\n  112 |       version: 20,\n  113 |       data: { ...before.data, inclineRecords: [] },\n  114 |     });\n    at /Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v11.spec.ts:111:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:05.589Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results/upgrade-v11-真实-V1-0-构建-→-V-85aed-保留schema2的兼容UI回滚：历史与草稿逐字段保持-webkit-mobile/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results/upgrade-v11-真实-V1-0-构建-→-V-85aed-保留schema2的兼容UI回滚：历史与草稿逐字段保持-webkit-mobile/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results/upgrade-v11-真实-V1-0-构建-→-V-85aed-保留schema2的兼容UI回滚：历史与草稿逐字段保持-webkit-mobile/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v11.spec.ts",
+                    "column": 26,
+                    "line": 111
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "470ffd360e30f6af31c6-e48c74d3edc59aca4dc1",
+          "file": "upgrade-v11.spec.ts",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "upgrade-v111.spec.ts",
+      "file": "upgrade-v111.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "真实 V1.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10526,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:37:55.304Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5e7144e67c789cc4a96e-a81f2a3dc033a907e621",
+          "file": "upgrade-v111.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "真实 V1.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6864,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:08.742Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5e7144e67c789cc4a96e-a3994285bb5306b5c7dc",
+          "file": "upgrade-v111.spec.ts",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "upgrade-v12.spec.ts",
+      "file": "upgrade-v12.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "真实线上 V1.1.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10299,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:05.844Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5a96218dc4f1b2221439-a93777b2a489d0aa3662",
+          "file": "upgrade-v12.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "真实线上 V1.1.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4192,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -120,11 +120,10 @@\u001b[39m\n\u001b[2m          \"name\": \"腿弯举\",\u001b[22m\n\u001b[2m          \"technique\": \"\",\u001b[22m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:17.135Z\",\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[32m-     \"inclineRecords\": Array [],\u001b[39m\n\u001b[2m      \"settings\": Array [\u001b[22m\n\u001b[2m        Object {\u001b[22m\n\u001b[2m          \"createdAt\": \"2026-11-01T08:40:17.136Z\",\u001b[22m\n\u001b[2m          \"cycleStart\": \"2026-11-01\",\u001b[22m\n\u001b[2m          \"cycleTargetSessions\": null,\u001b[22m\n\u001b[33m@@ -439,7 +438,7 @@\u001b[39m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:19.374Z\",\u001b[22m\n\u001b[2m          \"weight\": 27.5,\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"version\": 20,\u001b[39m\n\u001b[31m+   \"version\": 10,\u001b[39m\n\u001b[2m  }\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -120,11 +120,10 @@\u001b[39m\n\u001b[2m          \"name\": \"腿弯举\",\u001b[22m\n\u001b[2m          \"technique\": \"\",\u001b[22m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:17.135Z\",\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[32m-     \"inclineRecords\": Array [],\u001b[39m\n\u001b[2m      \"settings\": Array [\u001b[22m\n\u001b[2m        Object {\u001b[22m\n\u001b[2m          \"createdAt\": \"2026-11-01T08:40:17.136Z\",\u001b[22m\n\u001b[2m          \"cycleStart\": \"2026-11-01\",\u001b[22m\n\u001b[2m          \"cycleTargetSessions\": null,\u001b[22m\n\u001b[33m@@ -439,7 +438,7 @@\u001b[39m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:19.374Z\",\u001b[22m\n\u001b[2m          \"weight\": 27.5,\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"version\": 20,\u001b[39m\n\u001b[31m+   \"version\": 10,\u001b[39m\n\u001b[2m  }\u001b[22m\n    at /Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v12.spec.ts:146:26",
+                    "location": {
+                      "file": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v12.spec.ts",
+                      "column": 26,
+                      "line": 146
+                    },
+                    "snippet": "  144 |       \"1.3.0\",\n  145 |     );\n> 146 |     expect(await read()).toEqual({\n      |                          ^\n  147 |       version: 20,\n  148 |       data: { ...before.data, inclineRecords: [] },\n  149 |     });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v12.spec.ts",
+                        "column": 26,
+                        "line": 146
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[33m@@ -120,11 +120,10 @@\u001b[39m\n\u001b[2m          \"name\": \"腿弯举\",\u001b[22m\n\u001b[2m          \"technique\": \"\",\u001b[22m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:17.135Z\",\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[32m-     \"inclineRecords\": Array [],\u001b[39m\n\u001b[2m      \"settings\": Array [\u001b[22m\n\u001b[2m        Object {\u001b[22m\n\u001b[2m          \"createdAt\": \"2026-11-01T08:40:17.136Z\",\u001b[22m\n\u001b[2m          \"cycleStart\": \"2026-11-01\",\u001b[22m\n\u001b[2m          \"cycleTargetSessions\": null,\u001b[22m\n\u001b[33m@@ -439,7 +438,7 @@\u001b[39m\n\u001b[2m          \"updatedAt\": \"2026-11-01T08:40:19.374Z\",\u001b[22m\n\u001b[2m          \"weight\": 27.5,\u001b[22m\n\u001b[2m        },\u001b[22m\n\u001b[2m      ],\u001b[22m\n\u001b[2m    },\u001b[22m\n\u001b[32m-   \"version\": 20,\u001b[39m\n\u001b[31m+   \"version\": 10,\u001b[39m\n\u001b[2m  }\u001b[22m\n\n  144 |       \"1.3.0\",\n  145 |     );\n> 146 |     expect(await read()).toEqual({\n      |                          ^\n  147 |       version: 20,\n  148 |       data: { ...before.data, inclineRecords: [] },\n  149 |     });\n    at /Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v12.spec.ts:146:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:15.831Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results/upgrade-v12-真实线上-V1-1-1-构建-33895-保留schema2的兼容UI回滚：历史与草稿逐字段保持-webkit-mobile/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results/upgrade-v12-真实线上-V1-1-1-构建-33895-保留schema2的兼容UI回滚：历史与草稿逐字段保持-webkit-mobile/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/test-results/upgrade-v12-真实线上-V1-1-1-构建-33895-保留schema2的兼容UI回滚：历史与草稿逐字段保持-webkit-mobile/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/mac330/Documents/ChatGPT/Fitness OS 个人健身管理系统 V1.0/fitness-os-v1.1/e2e/upgrade-v12.spec.ts",
+                    "column": 26,
+                    "line": 146
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5a96218dc4f1b2221439-82da6486d15faf3738a5",
+          "file": "upgrade-v12.spec.ts",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "upgrade-v121.spec.ts",
+      "file": "upgrade-v121.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "已发布 V1.2 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10294,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:16.159Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1fe5cc6284b8366fcc9-a6d1601e06551f5edaf7",
+          "file": "upgrade-v121.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "已发布 V1.2 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7693,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:20.320Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c1fe5cc6284b8366fcc9-b78ae62f5fde417246ef",
+          "file": "upgrade-v121.spec.ts",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "upgrade-v130.spec.ts",
+      "file": "upgrade-v130.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "已发布 V1.2.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium-mobile",
+              "projectName": "chromium-mobile",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11041,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:38:26.466Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e8c55a26de91db1ff5b4-1c5d0d1faef4ccaabf53",
+          "file": "upgrade-v130.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "已发布 V1.2.1 构建 → V1.3.0 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit-mobile",
+              "projectName": "webkit-mobile",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7562,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [
+                    {
+                      "buffer": ""
+                    },
+                    {
+                      "buffer": ""
+                    }
+                  ],
+                  "retry": 0,
+                  "startTime": "2026-11-01T08:40:28.226Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e8c55a26de91db1ff5b4-8509aac41a0e99d3d775",
+          "file": "upgrade-v130.spec.ts",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T08:36:00.911Z",
+    "duration": 274921.813,
+    "expected": 100,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

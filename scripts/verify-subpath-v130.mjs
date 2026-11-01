@@ -136,7 +136,7 @@ try {
         await page
           .locator('meta[name="fitness-build"]')
           .getAttribute("content"),
-        "1.3.0",
+        "1.3.1",
       );
       await page.getByLabel("坐姿推胸 第1组重量").fill("20");
       await page.getByLabel("坐姿推胸 第1组次数").fill("10");
