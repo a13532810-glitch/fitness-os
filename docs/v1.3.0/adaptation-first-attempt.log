@@ -118,7 +118,7 @@ Running 90 tests using 1 worker
   ✓  90 [webkit-mobile] › e2e/upgrade-v121.spec.ts:7:1 › 已发布 V1.2 构建 → V1.2.1 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 (7.0s)
 
 
-  1) [chromium-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
+  1) [chromium-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
 
     Error: expect(locator).toHaveAttribute(expected) failed
 
@@ -159,7 +159,7 @@ Running 90 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  2) [chromium-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
+  2) [chromium-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
 
     Error: expect(locator).toHaveAttribute(expected) failed
 
@@ -200,7 +200,7 @@ Running 90 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  3) [webkit-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
+  3) [webkit-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
 
     Error: expect(locator).toHaveAttribute(expected) failed
 
@@ -241,7 +241,7 @@ Running 90 tests using 1 worker
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-  4) [webkit-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
+  4) [webkit-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
 
     Error: expect(locator).toHaveAttribute(expected) failed
 
@@ -283,8 +283,8 @@ Running 90 tests using 1 worker
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
   4 failed
-    [chromium-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
-    [chromium-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
-    [webkit-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
-    [webkit-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持 
+    [chromium-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
+    [chromium-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
+    [webkit-mobile] › e2e/upgrade-v111.spec.ts:7:1 › 真实 V1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
+    [webkit-mobile] › e2e/upgrade-v12.spec.ts:7:1 › 真实线上 V1.1.1 构建 → V1.2 SW更新 → 保留schema2的兼容UI回滚：历史与草稿逐字段保持
   86 passed (4.8m)
