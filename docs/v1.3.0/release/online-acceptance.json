@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "engine": "chromium",
+      "stage": "after",
+      "version": "1.3.0",
+      "productionURL": "https://a13532810-glitch.github.io/fitness-os/",
+      "browsingTenTimesCreatesNoDrafts": true,
+      "oldServiceWorkerUpgrade": true,
+      "allLegacyFieldsPreserved": true,
+      "inclineCRUDAndWeeklyStats": true,
+      "historicBodyDataPreserved": true,
+      "overview": true,
+      "minimalEditor": true,
+      "multiplicationLayout": true,
+      "fourTabs": true,
+      "addExercise": true,
+      "dataManagement": true,
+      "aiJSONExport": true,
+      "backupExportDeleteAndRestore": true,
+      "offlineColdStartAndEdit": true,
+      "onlinePersistence": true,
+      "serviceWorker": {
+        "scope": "https://a13532810-glitch.github.io/fitness-os/",
+        "script": "https://a13532810-glitch.github.io/fitness-os/sw.js"
+      },
+      "pageErrors": [],
+      "resourceFailures": [],
+      "realIPhoneTested": false,
+      "syntheticDataOnly": true,
+      "evidence": "v130-live-after.log: chromium after PASS; all engine assertions completed before WebKit readiness race"
+    },
+    {
+      "engine": "webkit",
+      "stage": "after",
+      "version": "1.3.0",
+      "productionURL": "https://a13532810-glitch.github.io/fitness-os/",
+      "browsingTenTimesCreatesNoDrafts": true,
+      "oldServiceWorkerUpgrade": true,
+      "allLegacyFieldsPreserved": true,
+      "inclineCRUDAndWeeklyStats": true,
+      "historicBodyDataPreserved": true,
+      "overview": true,
+      "minimalEditor": true,
+      "multiplicationLayout": true,
+      "fourTabs": true,
+      "addExercise": true,
+      "dataManagement": true,
+      "aiJSONExport": true,
+      "backupExportDeleteAndRestore": true,
+      "offlineColdStartAndEdit": true,
+      "onlinePersistence": true,
+      "serviceWorker": {
+        "scope": "https://a13532810-glitch.github.io/fitness-os/",
+        "script": "https://a13532810-glitch.github.io/fitness-os/sw.js"
+      },
+      "pageErrors": [],
+      "resourceFailures": [],
+      "realIPhoneTested": false,
+      "syntheticDataOnly": true
+    }
+  ],
+  "note": "Chromium completed initial run; WebKit independently rerun after awaiting UI/schema readiness. All equality assertions retained."
+}

@@ -2924,7 +2924,7 @@ function SettingsPage({
           </section>
         </div>
       </Section>
-      <p className="version-info">Fitness OS · V1.3.0 · 数据版本 2</p>
+      <p className="version-info">Fitness OS · V1.3.1 · 数据版本 2</p>
     </>
   );
 }

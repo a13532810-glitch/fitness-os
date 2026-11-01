@@ -136,6 +136,7 @@ export function InclineLog({ data, db }: { data: Dataset; db: FitnessDB }) {
             {editing ? "保存修改" : "保存爬坡记录"}
           </button>
           <button
+            className="secondary"
             type="button"
             disabled={busy}
             onClick={() => {

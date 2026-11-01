@@ -1,0 +1,74 @@
+{
+  "securityAudit": {
+    "runtime": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "all": {
+      "info": 0,
+      "low": 1,
+      "moderate": 2,
+      "high": 0,
+      "critical": 0
+    }
+  },
+  "runtimeLicenses": [
+    {
+      "name": "dexie",
+      "version": "4.4.7",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "dexie-react-hooks",
+      "version": "4.4.0",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "lucide-react",
+      "version": "1.64.0",
+      "license": "ISC"
+    },
+    {
+      "name": "react",
+      "version": "19.3.1",
+      "license": "MIT"
+    },
+    {
+      "name": "react-dom",
+      "version": "19.3.1",
+      "license": "MIT"
+    },
+    {
+      "name": "scheduler",
+      "version": "0.28.0",
+      "license": "MIT"
+    },
+    {
+      "name": "workbox-window",
+      "version": "7.4.1",
+      "license": "MIT"
+    },
+    {
+      "name": "@types/trusted-types",
+      "version": "2.0.7",
+      "license": "MIT"
+    },
+    {
+      "name": "workbox-core",
+      "version": "7.4.1",
+      "license": "MIT"
+    },
+    {
+      "name": "zod",
+      "version": "4.6.7",
+      "license": "MIT"
+    }
+  ],
+  "sensitivePatternMatches": 0,
+  "stagedReleaseFiles": 51,
+  "dependenciesChanged": false,
+  "realIPhoneTested": false
+}

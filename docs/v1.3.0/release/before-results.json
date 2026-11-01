@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-01T08:11:06.514Z",
+  "results": [
+    {
+      "engine": "chromium",
+      "stage": "before",
+      "oldVersion": "1.2.1",
+      "syntheticDraftSaved": true,
+      "isolatedProfile": true
+    },
+    {
+      "engine": "webkit",
+      "stage": "before",
+      "oldVersion": "1.2.1",
+      "syntheticDraftSaved": true,
+      "isolatedProfile": true
+    }
+  ]
+}
